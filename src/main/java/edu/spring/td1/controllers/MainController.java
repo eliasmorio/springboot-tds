@@ -8,7 +8,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 @SessionAttributes("items")
@@ -60,6 +59,18 @@ public class MainController {
         for (Element el : items){
             if (el.getName().equals(name)){
                 el.setEvaluation(el.getEvaluation() - 1);
+                break;
+            }
+        }
+        return new RedirectView("/items");
+    }
+
+    @GetMapping("/items/delete/{nom}")
+    public RedirectView delete(@PathVariable(value = "nom")String name,
+                               @ModelAttribute("items") List<Element> items){
+        for (Element el : items){
+            if (el.getName().equals(name)){
+                items.remove(el);
                 break;
             }
         }
