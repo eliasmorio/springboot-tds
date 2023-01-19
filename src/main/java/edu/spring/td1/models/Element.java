@@ -5,7 +5,7 @@ public class Element {
 
     private String name;
 
-    private int Evaluation;
+    private int evaluation;
 
     public String getName() {
         return name;
@@ -16,11 +16,11 @@ public class Element {
     }
 
     public int getEvaluation() {
-        return Evaluation;
+        return evaluation;
     }
 
     public void setEvaluation(int evaluation) {
-        Evaluation = evaluation;
+        this.evaluation = evaluation;
     }
 
     @Override
