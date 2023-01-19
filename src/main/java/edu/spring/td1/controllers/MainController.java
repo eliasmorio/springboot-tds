@@ -8,6 +8,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @SessionAttributes("items")
@@ -33,9 +34,35 @@ public class MainController {
     @PostMapping("/items/addNew")
     public RedirectView store(@RequestParam String name,
                               @ModelAttribute("items") List<Element> items){
-        Element el = new Element();
-        el.setName(name);
-        items.add(el);
+        if (items.stream().noneMatch(el -> el.getName().equals(name))){
+            Element el = new Element();
+            el.setName(name);
+            items.add(el);
+            return new RedirectView("/items");
+        }
+        return new RedirectView("/items/new");
+    }
+
+    @GetMapping("/items/inc/{nom}")
+    public RedirectView inc(@PathVariable(value = "nom")String name,
+                            @ModelAttribute("items") List<Element> items){
+        for (Element el : items){
+            if (el.getName().equals(name)){
+                el.setEvaluation(el.getEvaluation() + 1);
+                break;
+            }
+        }        return new RedirectView("/items");
+    }
+
+    @GetMapping("/items/dec/{nom}")
+    public RedirectView dec(@PathVariable(value = "nom")String name,
+                            @ModelAttribute("items") List<Element> items){
+        for (Element el : items){
+            if (el.getName().equals(name)){
+                el.setEvaluation(el.getEvaluation() - 1);
+                break;
+            }
+        }
         return new RedirectView("/items");
     }
 

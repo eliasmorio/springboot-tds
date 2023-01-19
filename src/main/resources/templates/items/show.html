@@ -3,7 +3,11 @@
     <h1>Liste des éléments stockés en sessions</h1>
     <button class="ui button" onclick="window.location.href='/items/new'">Ajouter un élément</button>
     {{ #items}}
-        <h4>{{name}}</h4>
+        <div style="margin: 3px">
+            <h4>{{name}} {{evaluation}}</h4>
+            <button class="ui button" onclick="window.location.href='/items/inc/{{name}}'">Incrémenter</button>
+            <button class="ui button" onclick="window.location.href='/items/dec/{{name}}'">Décrémenter</button>
+        </div>
     {{/items}}
 
 {{>partials/footer}}
