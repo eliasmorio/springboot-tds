@@ -1,5 +1,6 @@
 package edu.spring.td1.controllers;
 
+import edu.spring.td1.models.Category;
 import edu.spring.td1.models.Element;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,12 +11,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@SessionAttributes("items")
+@SessionAttributes({"items", "categories"})
 public class MainController {
 
     @ModelAttribute("items")
     public List<Element> getItems(){
         return new ArrayList<>();
+    }
+
+    @ModelAttribute("categories")
+    public List<Category> getCategories(){
+        var categories = new ArrayList<Category>();
+        var category = new Category();
+        category.setName("Amis");
+        categories.add(category);
+        category = new Category();
+        category.setName("Famille");
+        categories.add(category);
+        category = new Category();
+        category.setName("Professionnels");
+        categories.add(category);
+        return categories;
+    }
+
+
+
+    @GetMapping("/")
+    public String index(ModelMap modelMap,
+                        @ModelAttribute("categories") List<Category> categories){
+        modelMap.addAttribute("categories", categories);
+        return "index";
     }
 
     @RequestMapping(value = "/items", method = {RequestMethod.GET, RequestMethod.POST})
@@ -26,17 +51,24 @@ public class MainController {
     }
 
     @GetMapping("/items/new")
-    public String add(){
+    public String add(ModelMap model,
+                      @ModelAttribute("categories") List<Category> categories){
+        model.addAttribute("categories", categories);
         return "items/add";
     }
 
     @PostMapping("/items/addNew")
     public RedirectView store(@RequestParam String name,
-                              @ModelAttribute("items") List<Element> items){
+                              @RequestParam String category,
+                              @ModelAttribute("items") List<Element> items,
+                              @ModelAttribute("categories") List<Category> categories){
         if (items.stream().noneMatch(el -> el.getName().equals(name))){
             Element el = new Element();
             el.setName(name);
             items.add(el);
+            categories.stream().filter(cat -> cat.getName().equals(category))
+                    .findFirst().get()
+                    .addElement(el);
             return new RedirectView("/items");
         }
         return new RedirectView("/items/new");

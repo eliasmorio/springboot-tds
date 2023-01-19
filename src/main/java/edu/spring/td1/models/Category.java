@@ -1,5 +1,6 @@
 package edu.spring.td1.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Category {
@@ -7,6 +8,9 @@ public class Category {
     private String name;
     private List<Element> elements;
 
+    public Category() {
+        elements = new ArrayList<>();
+    }
 
     public String getName() {
         return name;

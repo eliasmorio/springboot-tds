@@ -1,0 +1,19 @@
+{{>partials/header}}
+
+
+  <div class="ui top attached tabular menu">
+    {{#categories}}
+        <a class="item" data-tab="{{name}}">{{name}}</a>
+    {{/categories}}
+  </div>
+  {{#categories}}
+    <div class="ui bottom attached tab segment" data-tab="{{name}}">
+      {{#elements}}
+        <h4>{{name}} {{evaluation}}</h4>
+      {{/elements}}
+    </div>
+  {{/categories}}
+
+
+
+{{>partials/footer}}
