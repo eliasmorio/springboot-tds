@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - td1
+      - td1_*
   workflow_dispatch:
   
 permissions:
