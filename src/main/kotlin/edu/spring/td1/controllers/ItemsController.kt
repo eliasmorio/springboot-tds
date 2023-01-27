@@ -46,26 +46,36 @@ class ItemsController {
 
     @GetMapping("/inc/{nom}")
     fun inc(@PathVariable(value = "nom") name: String,
+            attrs:RedirectAttributes,
             @SessionAttribute("items") items: HashSet<Item>): RedirectView {
         items.stream()
                 .filter { el: Item -> el.name == name }
                 .forEach { el: Item -> el.evaluation += 1 }
+        attrs.addFlashAttribute("msg", UIMessage.message("Modification", "$name à été incrémenté"))
         return RedirectView("/")
     }
 
     @GetMapping("/dec/{nom}")
     fun dec(@PathVariable(value = "nom") name: String,
+            attrs:RedirectAttributes,
             @SessionAttribute("items") items: HashSet<Item>): RedirectView {
         items.stream()
                 .filter { el: Item -> el.name == name }
                 .forEach { el: Item -> el.evaluation -= 1 }
+        attrs.addFlashAttribute("msg", UIMessage.message("Modification", "$name à été décrémenté"))
         return RedirectView("/")
     }
 
     @GetMapping("/delete/{nom}")
     fun delete(@PathVariable(value = "nom") name:String,
+               attrs:RedirectAttributes,
                @SessionAttribute("items") items: HashSet<Item>): RedirectView {
-        items.removeIf{el: Item -> el.name == name }
+        if (items.removeIf{el: Item -> el.name == name }){
+            attrs.addFlashAttribute("msg", UIMessage.message("Suppression", "$name à été supprimé"))
+        }
+        else{
+            attrs.addFlashAttribute("msg", UIMessage.message("Suppression", "$name n'existe pas", "error", "warning circle"))
+        }
         return RedirectView("/")
     }
 }
