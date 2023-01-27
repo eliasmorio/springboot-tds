@@ -1,0 +1,17 @@
+{{>partials/header}}
+
+    <h1>Liste des éléments stockés en sessions</h1>
+    <button class="ui button" onclick="window.location.href='/new'">Ajouter un élément</button>
+    {{#msg}}
+        {{>partials/message}}
+    {{/msg}}
+    {{ #items}}
+        <div style="margin: 3px">
+            <h4>{{name}} {{evaluation}}</h4>
+            <button class="ui button" onclick="window.location.href='/inc/{{name}}'">Incrémenter</button>
+            <button class="ui button" onclick="window.location.href='/dec/{{name}}'">Décrémenter</button>
+            <button class="negative ui button" onclick="window.location.href='/delete/{{name}}'">Supprimer</button>
+        </div>
+    {{/items}}
+
+{{>partials/footer}}

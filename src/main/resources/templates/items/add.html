@@ -1,0 +1,23 @@
+{{>partials/header}}
+
+    <h1>Ajout d'un nouvel élément</h1>
+    <form action="/addNew" method="post">
+        <div class="ui form">
+            <div class="field">
+                <label for="name">Nom de l'élément</label>
+                <input type="text" name="name" id="name" placeholder="Nom de l'élément">
+            </div>
+            <div class="field">
+                <label for="category">Catégorie</label>
+                <select name="category" id="category">
+                    {{#categories}}
+                        <option value="{{name}}">{{name}}</option>
+                    {{/categories}}
+                </select>
+            </div>
+            <button class="ui button" type="submit">Ajouter</button>
+        </div>
+    </form>
+
+
+{{>partials/footer}}
