@@ -1,7 +1,6 @@
 package edu.spring.td1.models
 
-class Item {
-    var name: String? = null
+class Item(var name:String) {
     var evaluation = 0
 
     override fun equals(obj: Any?): Boolean {
@@ -11,6 +10,6 @@ class Item {
     }
 
     override fun hashCode(): Int {
-        return name?.hashCode() ?: 0
+        return name.hashCode() ?: 0
     }
 }
