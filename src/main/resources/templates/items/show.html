@@ -5,14 +5,21 @@
     {{#msg}}
         {{>partials/message}}
     {{/msg}}
-    {{ #items}}
-        <hr>
-        <div style="margin: 3px">
+    <div class="ui top attached tabular menu">
+        {{#categories}}
+            <a class="item" data-tab="{{name}}">{{name}}</a>
+        {{/categories}}
+    </div>
+    {{#categories}}
+    <div class="ui bottom attached tab segment" data-tab="{{name}}">
+        {{#items}}
             <h4>{{name}} {{evaluation}}</h4>
-            <button class="ui button" onclick="window.location.href='/inc/{{name}}'">Incrémenter</button>
-            <button class="ui button" onclick="window.location.href='/dec/{{name}}'">Décrémenter</button>
-            <button class="negative ui button" onclick="window.location.href='/delete/{{name}}'">Supprimer</button>
-        </div>
-    {{/items}}
+            <button class="ui button" onclick="window.location.href='/inc/{{name}}'">+</button>
+            <button class="ui button" onclick="window.location.href='/dec/{{name}}'">-</button>
+            <button class="ui negative button" onclick="window.location.href='/delete/{{name}}'">Supprimer</button>
+        <hr>
+        {{/items}}
+    </div>
+    {{/categories}}
 
 {{>partials/footer}}

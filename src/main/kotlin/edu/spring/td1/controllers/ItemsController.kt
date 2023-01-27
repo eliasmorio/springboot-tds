@@ -1,5 +1,6 @@
 package edu.spring.td1.controllers
 
+import edu.spring.td1.models.Category
 import edu.spring.td1.models.Item
 import edu.spring.td1.services.UIMessage
 import org.springframework.stereotype.Controller
@@ -9,20 +10,33 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes
 import org.springframework.web.servlet.view.RedirectView
 
 @Controller
-@SessionAttributes("items")
+@SessionAttributes("items", "categories")
 class ItemsController {
 
     @get:ModelAttribute("items")
     val items: Set<Item>
         get() = HashSet()
 
+    @get:ModelAttribute("categories")
+    val categories: Set<Category>
+        get() {
+            val categories = HashSet<Category>()
+            categories.add(Category("Amis"))
+            categories.add(Category("Famille"))
+            categories.add(Category("Professionnels"))
+            return categories
+        }
+
 
 
     @RequestMapping(value = ["/"], method = [RequestMethod.GET, RequestMethod.POST])
     fun show(model: ModelMap,
              @RequestAttribute msg:UIMessage.Message?,
-             @ModelAttribute("items") items : HashSet<Item>): String {
+             @ModelAttribute("items") items : HashSet<Item>,
+             @ModelAttribute("categories") categories : HashSet<Item>): String {
+        print(categories)
         model.addAttribute("items", items)
+        model.addAttribute("categories", categories)
         return "items/show"
     }
 
@@ -32,14 +46,21 @@ class ItemsController {
     }
 
     @PostMapping("/addNew")
-    fun store(@ModelAttribute item:Item,
-              @SessionAttribute("items") items : HashSet<Item>,
+    fun store(@RequestParam("name") item: Item,
+              @RequestParam("category") category: Category,
+              @SessionAttribute("categories") categories: HashSet<Category>,
               attrs:RedirectAttributes): RedirectView {
-        if (items.add(item)){
+
+        val cat = categories.stream()
+                .filter { el: Category -> el.name == category.name }
+                .findFirst()
+                .orElse(null)
+        if (cat.addItem(item)){
             attrs.addFlashAttribute("msg", UIMessage.message("Ajout", "${item.name} a été ajouté avec succès"))
         } else {
             attrs.addFlashAttribute("msg", UIMessage.message("Ajout", "${item.name} est déja dans la liste des items", "error", "warning circle"))
         }
+        categories.stream().forEach { println(it.name) }
 
         return RedirectView("/")
     }
