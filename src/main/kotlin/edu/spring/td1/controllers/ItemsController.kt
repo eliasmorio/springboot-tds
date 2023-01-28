@@ -49,13 +49,21 @@ class ItemsController {
     fun store(@RequestParam("name") item: Item,
               @RequestParam("category") category: Category,
               @SessionAttribute("categories") categories: HashSet<Category>,
+              @SessionAttribute("items") items: HashSet<Item>,
               attrs:RedirectAttributes): RedirectView {
 
-        val cat = categories.stream()
-                .filter { el: Category -> el.name == category.name }
-                .findFirst()
-                .orElse(null)
-        if (cat.addItem(item)){
+
+        val cat = categories.find { el: Category -> el.name == category.name }
+        if (cat == null){
+            attrs.addFlashAttribute("msg", UIMessage.message("Ajout", "La catégorie ${category.name} n'existe pas", "error", "warning circle"))
+            return RedirectView("/")
+        }
+        if (item.name == null || item.name == ""){
+            attrs.addFlashAttribute("msg", UIMessage.message("Ajout", "Le nom de l'item ne peut pas être vide", "error", "warning circle"))
+            return RedirectView("/")
+        }
+        if (items.add(item)){
+            cat.addItem(item)
             attrs.addFlashAttribute("msg", UIMessage.message("Ajout", "${item.name} a été ajouté avec succès"))
         } else {
             attrs.addFlashAttribute("msg", UIMessage.message("Ajout", "${item.name} est déja dans la liste des items", "error", "warning circle"))
@@ -90,8 +98,10 @@ class ItemsController {
     @GetMapping("/delete/{nom}")
     fun delete(@PathVariable(value = "nom") name:String,
                attrs:RedirectAttributes,
-               @SessionAttribute("items") items: HashSet<Item>): RedirectView {
+               @SessionAttribute("items") items: HashSet<Item>,
+               @SessionAttribute("categories") categories: HashSet<Category>): RedirectView {
         if (items.removeIf{el: Item -> el.name == name }){
+            categories.find { el: Category -> el.items.removeIf { it.name == name} }
             attrs.addFlashAttribute("msg", UIMessage.message("Suppression", "$name à été supprimé"))
         }
         else{
