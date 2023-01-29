@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar target/springboot-tds.ja
+web: java -Dserver.port=$PORT -jar target/td1-0.0.1-SNAPSHOT.war
