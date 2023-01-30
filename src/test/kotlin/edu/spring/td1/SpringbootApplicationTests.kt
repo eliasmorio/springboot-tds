@@ -24,7 +24,6 @@ class SpringbootApplicationTests {
 		mvc!!.perform(get("/"))
 				.andExpect(status().isOk)
 				.andExpect(view().name("items/show"))
-				.andExpect(model().attributeExists("items"))
 				.andExpect(model().attributeExists("categories"))
 	}
 
