@@ -13,9 +13,9 @@ import org.springframework.web.servlet.view.RedirectView
 @SessionAttributes("items", "categories")
 class ItemsController {
 
-    @get:ModelAttribute("items")
-    val items: Set<Item>
-        get() = HashSet()
+//    @get:ModelAttribute("items")
+//    val items: Set<Item>
+//        get() = HashSet()
 
     @get:ModelAttribute("categories")
     val categories: Set<Category>
@@ -27,15 +27,24 @@ class ItemsController {
             return categories
         }
 
+    private fun getItemByName(name:String,items:HashSet<Item>):Item?=items.find { name==it.name }
+
+    private fun addMsg(resp:Boolean,attrs: RedirectAttributes,title:String,success:String,error:String){
+        if(resp) {
+            attrs.addFlashAttribute("msg",
+                UIMessage.message(title, success))
+        } else {
+            attrs.addFlashAttribute("msg",
+                UIMessage.message(title, error,"error","warning circle"))
+
+        }
+    }
 
 
     @RequestMapping(value = ["/"], method = [RequestMethod.GET, RequestMethod.POST])
     fun show(model: ModelMap,
              @RequestAttribute msg:UIMessage.Message?,
-             @ModelAttribute("items") items : HashSet<Item>,
-             @ModelAttribute("categories") categories : HashSet<Item>): String {
-        print(categories)
-        model.addAttribute("items", items)
+             @ModelAttribute("categories") categories : HashSet<Category>): String {
         model.addAttribute("categories", categories)
         return "items/show"
     }
@@ -49,63 +58,60 @@ class ItemsController {
     fun store(@RequestParam("name") item: Item,
               @RequestParam("category") category: Category,
               @SessionAttribute("categories") categories: HashSet<Category>,
-              @SessionAttribute("items") items: HashSet<Item>,
               attrs:RedirectAttributes): RedirectView {
-
-
-        val cat = categories.find { el: Category -> el.name == category.name }
-        if (cat == null){
-            attrs.addFlashAttribute("msg", UIMessage.message("Ajout", "La catégorie ${category.name} n'existe pas", "error", "warning circle"))
-            return RedirectView("/")
-        }
-        if (item.name == null || item.name == ""){
-            attrs.addFlashAttribute("msg", UIMessage.message("Ajout", "Le nom de l'item ne peut pas être vide", "error", "warning circle"))
-            return RedirectView("/")
-        }
-        if (items.add(item)){
-            cat.addItem(item)
-            attrs.addFlashAttribute("msg", UIMessage.message("Ajout", "${item.name} a été ajouté avec succès"))
-        } else {
-            attrs.addFlashAttribute("msg", UIMessage.message("Ajout", "${item.name} est déja dans la liste des items", "error", "warning circle"))
-        }
-        categories.stream().forEach { println(it.name) }
-
+        val cat = categories.find { it == category }
+        if (cat == null)
+            attrs.addFlashAttribute("msg", UIMessage.message("Ajout", "$category n'existe pas", "error", "warning circle"))
+        else
+            addMsg(cat.addItem(item),attrs,"Ajout","$item à été ajouté","$item existe déjà")
         return RedirectView("/")
     }
 
-    @GetMapping("/inc/{nom}")
+    @GetMapping("/inc/{categ}/{nom}")
     fun inc(@PathVariable(value = "nom") name: String,
+            @PathVariable(value = "categ") categ: Category,
             attrs:RedirectAttributes,
-            @SessionAttribute("items") items: HashSet<Item>): RedirectView {
-        items.stream()
-                .filter { el: Item -> el.name == name }
-                .forEach { el: Item -> el.evaluation += 1 }
-        attrs.addFlashAttribute("msg", UIMessage.message("Modification", "$name à été incrémenté"))
-        return RedirectView("/")
-    }
-
-    @GetMapping("/dec/{nom}")
-    fun dec(@PathVariable(value = "nom") name: String,
-            attrs:RedirectAttributes,
-            @SessionAttribute("items") items: HashSet<Item>): RedirectView {
-        items.stream()
-                .filter { el: Item -> el.name == name }
-                .forEach { el: Item -> el.evaluation -= 1 }
-        attrs.addFlashAttribute("msg", UIMessage.message("Modification", "$name à été décrémenté"))
-        return RedirectView("/")
-    }
-
-    @GetMapping("/delete/{nom}")
-    fun delete(@PathVariable(value = "nom") name:String,
-               attrs:RedirectAttributes,
-               @SessionAttribute("items") items: HashSet<Item>,
-               @SessionAttribute("categories") categories: HashSet<Category>): RedirectView {
-        if (items.removeIf{el: Item -> el.name == name }){
-            categories.find { el: Category -> el.items.removeIf { it.name == name} }
-            attrs.addFlashAttribute("msg", UIMessage.message("Suppression", "$name à été supprimé"))
+            @SessionAttribute("categories") categories: HashSet<Category>): RedirectView {
+        val cat = categories.find { it == categ }
+        if (cat ==null)
+            addMsg(false, attrs, "Modification", "$categ n'existe pas", "$categ n'existe pas")
+        else {
+            val item = getItemByName(name, cat.items)
+            if (item != null)
+                item.evaluation += 1
+            addMsg(item != null, attrs, "Modification", "$name à été incrémenté", "$name n'existe pas")
         }
-        else{
-            attrs.addFlashAttribute("msg", UIMessage.message("Suppression", "$name n'existe pas", "error", "warning circle"))
+        return RedirectView("/")
+    }
+
+    @GetMapping("/dec/{categ}/{nom}")
+    fun dec(@PathVariable(value = "nom") name: String,
+            @PathVariable(value = "categ") categ: Category,
+            attrs:RedirectAttributes,
+            @SessionAttribute("categories") items: HashSet<Category>): RedirectView {
+        val cat = items.find { it == categ }
+        if (cat ==null)
+            addMsg(false, attrs, "Modification", "$categ n'existe pas", "$categ n'existe pas")
+        else {
+            val item = getItemByName(name, cat.items)
+            if (item != null)
+                item.evaluation -= 1
+            addMsg(item != null, attrs, "Modification", "$name à été décrémenté", "$name n'existe pas")
+        }
+        return RedirectView("/")
+    }
+
+    @GetMapping("/delete/{categ}/{nom}")
+    fun delete(@PathVariable(value = "nom") name:String,
+               @PathVariable(value = "categ") categ: Category,
+               attrs:RedirectAttributes,
+               @SessionAttribute("categories") categories: HashSet<Category>): RedirectView {
+        val cat = categories.find { it == categ }
+        if (cat ==null)
+            addMsg(false, attrs, "Suppression", "$categ n'existe pas", "$categ n'existe pas")
+        else {
+            val item = getItemByName(name, cat.items)
+            addMsg(cat.items.remove(item), attrs, "Suppression", "$name à été supprimé", "$name n'existe pas")
         }
         return RedirectView("/")
     }

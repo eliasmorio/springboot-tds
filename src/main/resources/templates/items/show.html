@@ -7,16 +7,16 @@
     {{/msg}}
     <div class="ui top attached tabular menu">
         {{#categories}}
-            <a class="item" data-tab="{{name}}">{{name}}</a>
+            <a class="item" data-tab="{{label}}">{{label}}</a>
         {{/categories}}
     </div>
     {{#categories}}
-    <div class="ui bottom attached tab segment" data-tab="{{name}}">
+    <div class="ui bottom attached tab segment" data-tab="{{label}}">
         {{#items}}
             <h4>{{name}} {{evaluation}}</h4>
-            <button class="ui button" onclick="window.location.href='/inc/{{name}}'">+</button>
-            <button class="ui button" onclick="window.location.href='/dec/{{name}}'">-</button>
-            <button class="ui negative button" onclick="window.location.href='/delete/{{name}}'">Supprimer</button>
+            <button class="ui button" onclick="window.location.href='/inc/{{label}}/{{name}}'">+</button>
+            <button class="ui button" onclick="window.location.href='/dec/{{label}}/{{name}}'">-</button>
+            <button class="ui negative button" onclick="window.location.href='/delete/{{label}}/{{name}}'">Supprimer</button>
         <hr>
         {{/items}}
     </div>

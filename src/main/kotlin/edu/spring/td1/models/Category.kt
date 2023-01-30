@@ -2,7 +2,7 @@ package edu.spring.td1.models
 
 import java.util.HashSet
 
-class Category(var name:String) {
+data class Category(var label:String) {
     var items:HashSet<Item> = HashSet()
 
     fun addItem(item:Item) : Boolean {
