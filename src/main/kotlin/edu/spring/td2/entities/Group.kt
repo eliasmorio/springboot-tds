@@ -14,12 +14,10 @@ open class Group {
     open var aliases: String? = null
 
     @ManyToOne
-    @JoinColumn(name = "idOrganization", nullable = false)
     open var organization: Organization? = null
 
     @ManyToMany
     @JoinTable(
         name = "user_group"
     )
-    open var users: HashSet<User> = hashSetOf()
-}
+    open var users: MutableSet<User> = mutableSetOf()}

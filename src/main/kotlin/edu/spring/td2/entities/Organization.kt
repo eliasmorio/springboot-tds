@@ -15,11 +15,14 @@ open class Organization {
 
 
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "organization")
-    open var groups: HashSet<Group> = hashSetOf()
+    open var groups: MutableSet<Group> = mutableSetOf()
 
     @OneToMany
-    open var users: HashSet<User> = hashSetOf()
+    open var users: MutableSet<User> = mutableSetOf()
 
+    override fun toString(): String {
+        return "Organization(id=$id, name='$name', domain=$domain, aliases=$aliases, groups=$groups, users=$users)"
+    }
 
 
 
