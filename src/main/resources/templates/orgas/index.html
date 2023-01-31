@@ -9,7 +9,7 @@
 </button>
 
 {{ #message }}
-    {{ >main/message }}
+    {{ >components/message }}
 {{ /message }}
 
 <table class="ui table">
@@ -30,7 +30,7 @@
                 <td>{{ domain }}</td>
                 <td>{{ aliases }}</td>
                 <td>
-                    <button class="circular ui icon button">
+                    <button class="circular ui icon button" onclick="window.location.href='/orgas/display/{{ id }}'">
                         <i class="icon eye"></i>
                     </button>
                     <button class="circular ui icon button" onclick="window.location.href='/orgas/edit/{{ id }}'">

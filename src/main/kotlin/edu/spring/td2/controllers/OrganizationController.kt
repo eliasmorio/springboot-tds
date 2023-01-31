@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.servlet.mvc.support.RedirectAttributes
 
 
 @Controller
@@ -16,8 +17,19 @@ class OrganizationController {
     @Autowired
     lateinit var organiaztionRepository: OrganizationRepository
 
+    private fun addMsg(resp:Boolean, attrs: RedirectAttributes, title:String, success:String, error:String){
+        if(resp) {
+            attrs.addFlashAttribute("msg",
+                UIMessage.message(title, success))
+        } else {
+            attrs.addFlashAttribute("msg",
+                UIMessage.message(title, error,"error","warning circle"))
+
+        }
+    }
+
     @GetMapping("", "/")
-    fun index(model: ModelMap) : String{
+    fun index(model: ModelMap, attrs: RedirectAttributes) : String{
         model["orgas"] = organiaztionRepository.findAll()
         return "orgas/index"
     }
@@ -61,10 +73,22 @@ class OrganizationController {
     }
 
     @PostMapping("/delete/{id}")
-    fun deletePost(@PathVariable id: Int) : String{
+    fun destroy(@PathVariable id: Int) : String{
         val org = organiaztionRepository.findById(id).get()
         organiaztionRepository.delete(org)
         return "redirect:/orgas"
+    }
+
+    @GetMapping("/display/{id}")
+    fun display(model: ModelMap, @PathVariable id: Int,
+                attrs: RedirectAttributes) : String{
+        val org =  organiaztionRepository.findById(id)
+        if (!org.isPresent) {
+            addMsg(false, attrs, "Erreur", "", "Cette organisation n'existe pas")
+            return "redirect:/orgas"
+        }
+        model["orga"] = org.get()
+        return "orgas/display"
     }
 
 
