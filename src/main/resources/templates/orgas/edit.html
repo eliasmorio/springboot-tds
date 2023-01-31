@@ -1,0 +1,27 @@
+{{ >main/header }}
+
+{{ #orga }}
+<form method="post" action="/orgas/store" class="form ui">
+    <input type="hidden" name="id" value="{{ id }}">
+
+    <div class="field">
+        <label for="name">Name</label>
+        <input id="name" type="text" name="name" placeholder="Name" value="{{ name }}">
+    </div>
+    <div class="field">
+        <label for="domain">Domain</label>
+        <input id="domain" type="text" name="domain" placeholder="Domain" value="{{ domain }}">
+    </div>
+    <div class="field">
+        <label for="aliases">Aliases</label>
+        <input id="aliases" type="text" name="aliases" placeholder="Aliases" value="{{ aliases }}">
+    </div>
+
+    <button class="ui positive button" type="submit">Validate</button>
+    <button class="ui button" type="reset">Cancel</button>
+
+</form>
+{{ /orga}}
+
+
+{{ >main/footer }}

@@ -5,10 +5,7 @@ import edu.spring.td2.repositories.OrganizationRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.ModelAttribute
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.*
 
 
 @Controller
@@ -36,6 +33,15 @@ class OrganizationController {
             organiaztionRepository.saveAndFlush(orga)
         }
         return "redirect:/orgas"
+    }
+
+    @GetMapping("/edit/{id}")
+    fun edit(model: ModelMap,
+             @PathVariable id: Int) : String{
+        model["orga"] = organiaztionRepository.findById(id).get()
+        if(model["orga"] == null)
+            return "redirect:/orgas" //TODO : display error
+        return "orgas/edit"
     }
 
 
