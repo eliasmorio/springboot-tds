@@ -1,18 +1,7 @@
-# Compléments Web
 
-Ce dépôt contient les différents TDs effectués dans le cadre du cours de Compléments Web.
+# TD2 : Messagerie
 
-Nous utilisons le langage Kotlin ainsi que le framework [Spring Boot](https://spring.io/projects/spring-boot) associer à [Mustache](https://mustache.github.io/) pour le rendu des pages.
+https://slamwiki2.kobject.net/backoffice/springboot/td2
 
-Les TDs sont organisés par branches, chaque branche correspondant à un TD.
-
-J'utilise également le déploiement automatique sur [Heroku](https://www.heroku.com/) pour certaines branches.
-
-## TD1
-
-[TD1](https://github.com/EliasMorio/springboot-tds/tree/td1-v2)
-
-Le TD1 consiste à créer une application web permettant de gérer des items (création, modification, suppression, affichage)
-, qui seront stockés dans la session.
 
 
