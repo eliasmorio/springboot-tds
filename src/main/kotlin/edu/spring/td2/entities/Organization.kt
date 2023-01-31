@@ -20,10 +20,6 @@ open class Organization {
     @OneToMany
     open var users: MutableSet<User> = mutableSetOf()
 
-    override fun toString(): String {
-        return "Organization(id=$id, name='$name', domain=$domain, aliases=$aliases, groups=$groups, users=$users)"
-    }
-
 
 
 }
