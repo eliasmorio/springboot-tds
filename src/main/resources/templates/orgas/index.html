@@ -1,0 +1,45 @@
+{{ >main/header }}
+
+<i class="envelope icon"></i>
+<h1>SpringBoot TD n°2</h1>
+
+<button class="ui secondary button" onclick="">
+    <i class="large plus icon"></i>
+    Ajouter une organisation...
+</button>
+<table class="ui table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Domain</th>
+            <th>Aliases</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{ #orgas }}
+            <tr>
+                <td>{{ id }}</td>
+                <td>{{ name }}</td>
+                <td>{{ domain }}</td>
+                <td>{{ aliases }}</td>
+                <td>
+                    <button class="circular ui icon button">
+                        <i class="icon eye"></i>
+                    </button>
+                    <button class="circular ui icon button">
+                        <i class="icon edit"></i>
+                    </button>
+                    <button class="circular ui icon button negative">
+                        <i class="icon times"></i>
+                    </button>
+                </td>
+            </tr>
+        {{ /orgas }}
+
+
+    </tbody>
+
+
+{{ >main/footer }}
