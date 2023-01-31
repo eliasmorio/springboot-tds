@@ -7,6 +7,11 @@
     <i class="large plus icon"></i>
     Ajouter une organisation...
 </button>
+
+{{ #message }}
+    {{ >main/message }}
+{{ /message }}
+
 <table class="ui table">
     <thead>
         <tr>
@@ -31,7 +36,7 @@
                     <button class="circular ui icon button" onclick="window.location.href='/orgas/edit/{{ id }}'">
                         <i class="icon edit"></i>
                     </button>
-                    <button class="circular ui icon button negative">
+                    <button class="circular ui icon button negative" onclick="window.location.href='/orgas/delete/{{ id }}'">
                         <i class="icon times"></i>
                     </button>
                 </td>

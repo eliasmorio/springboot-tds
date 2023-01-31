@@ -2,6 +2,7 @@ package edu.spring.td2.controllers
 
 import edu.spring.td2.entities.Organization
 import edu.spring.td2.repositories.OrganizationRepository
+import edu.spring.td2.services.UIMessage
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
@@ -42,6 +43,28 @@ class OrganizationController {
         if(model["orga"] == null)
             return "redirect:/orgas" //TODO : display error
         return "orgas/edit"
+    }
+
+    @GetMapping("/delete/{id}")
+    fun delete(model: ModelMap, @PathVariable id: Int) : String{
+        val org = organiaztionRepository.findById(id).get()
+
+        model["message"] = UIMessage.message("Confirmation de suppression",
+            "Confirmez-vous la suppression de '<em>${org.name}</em>' ?",
+            "red",
+            "question circle",
+            "/orgas/delete/$id",
+            "/orgas")
+
+        model["orgas"] = organiaztionRepository.findAll()
+        return "/orgas/index"
+    }
+
+    @PostMapping("/delete/{id}")
+    fun deletePost(@PathVariable id: Int) : String{
+        val org = organiaztionRepository.findById(id).get()
+        organiaztionRepository.delete(org)
+        return "redirect:/orgas"
     }
 
 
