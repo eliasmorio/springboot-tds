@@ -69,4 +69,24 @@ class GroupController {
         return "groups/display"
     }
 
+    @GetMapping("/delete/{id}")
+    fun delete(model: ModelMap, @PathVariable id: Int, attrs: RedirectAttributes) : String{
+        val group = groupRepository.findById(id).get()
+        val msg = UIMessage.message("Confirmation de suppression",
+            "Confirmez-vous la suppression de '<em>${group.name}</em>' ?",
+            "red",
+            "question circle",
+            "/groups/delete/$id",
+            "/groups")
+        attrs.addFlashAttribute("message", msg)
+        return "redirect:/groups"
+    }
+
+    @PostMapping("/delete/{id}")
+    fun destroy(@PathVariable id: Int) : String{
+        val group = groupRepository.findById(id).get()
+        groupRepository.delete(group)
+        return "redirect:/groups"
+    }
+
 }
