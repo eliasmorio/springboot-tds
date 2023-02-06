@@ -5,10 +5,7 @@ import edu.spring.td2.repositories.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.ModelAttribute
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.*
 
 @Controller
 @RequestMapping("/users")
@@ -40,6 +37,17 @@ class UserController {
         }
         return "redirect:/users"
     }
+
+    @GetMapping("/edit/{id}")
+    fun edit(model: ModelMap,
+             @PathVariable id: Int) : String{
+        model["user"] = userRepository.findById(id).get()
+        if(model["user"] == null)
+            return "redirect:/users" //TODO : display error
+        return "users/edit"
+    }
+
+
 
 
 }
