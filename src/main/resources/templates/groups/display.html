@@ -1,0 +1,53 @@
+{{ >main/header }}
+
+{{ #group }}
+    <button class="ui button" onclick="window.location.href='/groups/'">
+        <i class="icon times"></i>
+        Fermer
+    </button>
+    <button class="ui basic negative button" onclick="window.location.href='/groups/delete/{{ id }}'">
+        <i class="icon times"></i>
+        Supprimer {{ name }}...
+    </button>
+    <button class="ui basic button" onclick="window.location.href='/groups/edit/{{ id }}'">
+        <i class="icon times"></i>
+        Supprimer {{ name }}...
+    </button>
+
+    <table class="ui celled definition table ">
+        <tbody>
+            <tr>
+                <td>Id</td>
+                <td>{{ id }}</td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>{{ name }}</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>{{ email }}</td>
+            </tr>
+            <tr>
+                <td>Users</td>
+                <td>
+                    {{ #users }}
+                        {{ firstname }} {{ lastname }} <br>
+                    {{ /users }}
+                </td>
+            </tr>
+            <tr>
+                <td>Organization</td>
+                <td>
+                    {{ #organization }}
+                        {{ name }}
+                    {{ /organization }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+{{ /group }}
+
+
+{{ >main/footer }}

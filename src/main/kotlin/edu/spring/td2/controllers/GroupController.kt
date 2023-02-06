@@ -56,4 +56,17 @@ class GroupController {
         return "groups/edit"
     }
 
+    @GetMapping("/display/{id}")
+    fun display(model: ModelMap, @PathVariable id: Int,
+                attrs: RedirectAttributes
+    ) : String{
+        val group =  groupRepository.findById(id)
+        if (!group.isPresent) {
+            addMsg(false, attrs, "Erreur", "", "Ce groupe n'existe pas")
+            return "redirect:/groups"
+        }
+        model["group"] = group.get()
+        return "groups/display"
+    }
+
 }
