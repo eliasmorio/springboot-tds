@@ -31,8 +31,8 @@ class UserController {
 
     @GetMapping("", "/")
     fun index(model: ModelMap) : String {
-        model["users"] = userRepository.findAll()
-        return "users/index"
+        model["table"] = userService.getUITable()
+        return "entityIndex"
     }
 
     @GetMapping("/new")
@@ -63,8 +63,7 @@ class UserController {
 
     @GetMapping("/display/{id}")
     fun display(model: ModelMap, @PathVariable id: Int,
-                attrs: RedirectAttributes
-    ) : String{
+                attrs: RedirectAttributes) : String{
         val user =  userRepository.findById(id)
         if (!user.isPresent) {
             addMsg(false, attrs, "Erreur", "", "Cette utilisateur n'existe pas")
@@ -77,14 +76,7 @@ class UserController {
     @GetMapping("/delete/{id}")
     fun delete(model: ModelMap, @PathVariable id: Int, attrs: RedirectAttributes) : String{
         val user = userRepository.findById(id).get()
-
-        val msg = UIMessage.message("Confirmation de suppression",
-            "Confirmez-vous la suppression de '<em>${user.firstname} ${user.lastname} </em>' ?",
-            "red",
-            "question circle",
-            "/users/delete/$id",
-            "/users")
-        attrs.addFlashAttribute("message", msg)
+        attrs.addFlashAttribute(UIMessage.deleteMessage("${user.firstname} ${user.lastname}", "/users", id))
         return "redirect:/users"
     }
 

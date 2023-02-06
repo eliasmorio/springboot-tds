@@ -35,8 +35,8 @@ class OrganizationController {
 
     @GetMapping("", "/")
     fun index(model: ModelMap, attrs: RedirectAttributes) : String{
-        model["orgas"] = organiaztionRepository.findAll()
-        return "orgas/index"
+        model["table"] = organizationService.getUITable()
+        return "entityIndex"
     }
 
     @GetMapping("/new")

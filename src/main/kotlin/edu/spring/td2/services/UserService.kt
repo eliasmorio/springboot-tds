@@ -3,6 +3,7 @@ package edu.spring.td2.services
 import edu.spring.td2.entities.User
 import edu.spring.td2.repositories.UserRepository
 import edu.spring.td2.services.ui.UIForm
+import edu.spring.td2.services.ui.UITable
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.lang.reflect.Array
@@ -29,6 +30,15 @@ class UserService {
         }
         form.addField(UIForm.selectField("organization", "select", "Organisation", organizations))
         return form
+    }
+
+    fun getUITable() : UITable.Table {
+        val headers = arrayListOf("Id", "Prénom", "Nom", "Email")
+        val rows = arrayListOf<UITable.Row>()
+        userRepository.findAll().forEach {
+            rows.add(UITable.Row(arrayListOf(it.id.toString(), it.firstname?:"", it.lastname?:"", it.email?:""), it.id.toString()))
+        }
+        return UITable.table("Liste des utilisateurs", "users",  headers, rows)
     }
 
 }

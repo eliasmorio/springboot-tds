@@ -19,7 +19,7 @@ class UIMessage() {
                 "Confirmez-vous la suppression de '$objName' ?",
                 "red",
                 "question circle",
-                "/$objType/delete/$id",
+                "$objType/delete/$id",
                 "/$objType")
     }
 }

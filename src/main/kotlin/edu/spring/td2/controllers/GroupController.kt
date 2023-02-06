@@ -31,8 +31,8 @@ class GroupController {
 
     @GetMapping("", "/")
     fun index(model: ModelMap) : String {
-        model["groups"] = groupRepository.findAll()
-        return "groups/index"
+        model["table"] = groupService.getUITable()
+        return "entityIndex"
     }
 
     @GetMapping("/new")
@@ -55,7 +55,8 @@ class GroupController {
         model["group"] = groupRepository.findById(id).get()
         if(model["group"] == null)
             return "redirect:/groups" //TODO : display error
-        return "groups/edit"
+        model["form"] = groupService.getUIForm(model["group"] as Group)
+        return "entityForm"
     }
 
     @GetMapping("/display/{id}")
@@ -74,13 +75,7 @@ class GroupController {
     @GetMapping("/delete/{id}")
     fun delete(model: ModelMap, @PathVariable id: Int, attrs: RedirectAttributes) : String{
         val group = groupRepository.findById(id).get()
-        val msg = UIMessage.message("Confirmation de suppression",
-            "Confirmez-vous la suppression de '<em>${group.name}</em>' ?",
-            "red",
-            "question circle",
-            "/groups/delete/$id",
-            "/groups")
-        attrs.addFlashAttribute("message", msg)
+        attrs.addFlashAttribute(UIMessage.deleteMessage(group.name?:"", "/groups", id))
         return "redirect:/groups"
     }
 

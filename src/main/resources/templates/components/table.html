@@ -1,0 +1,35 @@
+{{ #table }}
+    <table class="ui table">
+        <thead>
+        <tr>
+            {{ #columns }}
+                <th>{{ . }}</th>
+            {{ /columns }}
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{ #rows }}
+            <tr>
+                {{ #columns }}
+                    <td>{{ . }}</td>
+                {{ /columns }}
+                <td>
+                    <button class="circular ui icon button" onclick="window.location.href='/{{obj}}/display/{{ id }}'">
+                        <i class="icon eye"></i>
+                    </button>
+                    <button class="circular ui icon button" onclick="window.location.href='/{{obj}}/edit/{{ id }}'">
+                        <i class="icon edit"></i>
+                    </button>
+                    <button class="circular ui icon button negative" onclick="window.location.href='/{{obj}}/delete/{{ id }}'">
+                        <i class="icon times"></i>
+                    </button>
+                </td>
+            </tr>
+
+        {{ /rows }}
+    </table>
+
+
+
+{{ /table }}
