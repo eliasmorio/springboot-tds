@@ -1,5 +1,21 @@
 {{ >main/header }}
 
-{{ >components/displayTable }}
+{{ >components/appTitle }}
+
+<div class="ui segment">
+
+    {{ #table }}
+
+    <button class="ui button secondary" onclick="window.location.href='/{{url}}/new'">
+        <i class="plus icon"></i>
+        Ajouter
+    </button>
+
+
+        {{ >components/displayTable }}
+
+    {{ /table }}
+
+</div>
 
 {{ >main/footer }}

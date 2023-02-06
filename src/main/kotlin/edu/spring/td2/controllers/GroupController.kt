@@ -32,12 +32,14 @@ class GroupController {
 
     @GetMapping("", "/")
     fun index(model: ModelMap) : String {
+        groupService.addDefaults(model)
         model["table"] = groupService.getUITable()
         return "entity/index"
     }
 
     @GetMapping("/new")
     fun new(model: ModelMap) : String{
+        groupService.addDefaults(model)
         model["form"] = groupService.getUIForm(Group())
         return "entity/form"
     }
@@ -45,6 +47,7 @@ class GroupController {
     @GetMapping("/edit/{id}")
     fun edit(model: ModelMap,
              @PathVariable id: Int) : String{
+        groupService.addDefaults(model)
         model["group"] = groupRepository.findById(id).get()
         if(model["group"] == null)
             return "redirect:/groups" //TODO : display error
@@ -68,8 +71,9 @@ class GroupController {
             addMsg(false, attrs, "Erreur", "", "Ce groupe n'existe pas")
             return "redirect:/groups"
         }
+        groupService.addDefaults(model)
         model["table"] = groupService.getUIDisplay(group.get())
-        return "entityDisplay"
+        return "entity/display"
     }
 
     @GetMapping("/delete/{id}")
@@ -84,6 +88,14 @@ class GroupController {
         val group = groupRepository.findById(id).get()
         groupRepository.delete(group)
         return "redirect:/groups"
+    }
+
+    @GetMapping("/search")
+    fun search(model: ModelMap, @RequestParam query: String) : String{
+        groupService.addDefaults(model)
+        model["table"] = groupService.getUITableSearch(query)
+        model["query"] = query
+        return "entity/index"
     }
 
 }

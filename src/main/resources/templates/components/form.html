@@ -1,5 +1,4 @@
-{{ #form }}
-    <form method="{{method}}" action="/{{obj}}/store" class="form ui">
+    <form method="{{method}}" action="/{{url}}/store" class="form ui">
         {{ #fields }}
         <div class="field">
             <label for="{{name}}">{{label}}</label>
@@ -7,7 +6,7 @@
             {{ #select }}
                 <select name="{{name}}" id="{{name}}" class="ui dropdown">
                     {{ #options }}
-                    <option value="{{value}}">{{label}}</option>
+                    <option value="{{value}}" {{#selected}}selected{{/selected}} >{{label}}</option>
                     {{ /options }}
                 </select>
             {{ /select }}
@@ -24,7 +23,6 @@
         {{ /fields }}
 
         <button class="ui positive button" type="submit">Validate</button>
-        <button class="ui button" type="reset" onclick="window.location.href='/{{obj}}'">Cancel</button>
+        <button class="ui button" type="reset" onclick="window.location.href='/{{url}}'">Cancel</button>
     </form>
-{{ /form }}
 

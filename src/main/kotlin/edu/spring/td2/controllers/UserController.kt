@@ -31,12 +31,14 @@ class UserController {
 
     @GetMapping("", "/")
     fun index(model: ModelMap) : String {
+        userService.addDefaults(model)
         model["table"] = userService.getUITable()
         return "entity/index"
     }
 
     @GetMapping("/new")
     fun new(model: ModelMap) : String{
+        userService.addDefaults(model)
         model["form"] = userService.getUIForm(User())
         return "entity/form"
     }
@@ -47,6 +49,7 @@ class UserController {
         model["user"] = userRepository.findById(id).get()
         if(model["user"] == null)
             return "redirect:/users" //TODO : display error
+        userService.addDefaults(model)
         model["form"] = userService.getUIForm(model["user"] as User)
         return "entity/form"
     }
@@ -69,6 +72,7 @@ class UserController {
             addMsg(false, attrs, "Erreur", "", "Cette utilisateur n'existe pas")
             return "redirect:/users"
         }
+        userService.addDefaults(model)
         model["table"] = userService.getUIDetailTable(user.get())
         return "entity/display"
     }
@@ -85,6 +89,14 @@ class UserController {
         val user = userRepository.findById(id).get()
         userRepository.delete(user)
         return "redirect:/users"
+    }
+
+    @GetMapping("/search")
+    fun search(model: ModelMap, @RequestParam query: String) : String{
+        userService.addDefaults(model)
+        model["table"] = userService.getUITableSearch(query)
+        model["query"] = query
+        return "entity/index"
     }
 
 

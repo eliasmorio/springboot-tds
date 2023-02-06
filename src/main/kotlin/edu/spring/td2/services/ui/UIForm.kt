@@ -1,7 +1,7 @@
 package edu.spring.td2.services.ui
 
 class UIForm() {
-    class Form(var label : String, var method : String, var obj : String) {
+    class Form(var label : String, var method : String) {
         val fields: MutableList<FormField> = mutableListOf()
 
         fun addField(field: FormField) {

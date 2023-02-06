@@ -15,7 +15,7 @@ class OrganizationService {
     lateinit var organizationRepository: OrganizationRepository
 
     fun getUIForm(orga : Organization ) : UIForm.Form {
-        val form = UIForm.Form("Modifier une organisation", "POST", "orgas")
+        val form = UIForm.Form("Modifier une organisation", "POST")
         if (orga.id != null) {
             form.addField(UIForm.inputField("id", "hidden", "", orga.id.toString()))
         }
@@ -25,13 +25,19 @@ class OrganizationService {
         return form
     }
 
-    fun getUITable() : UITable.Table {
+    fun getUITable(orgas : List<Organization>? = null) : UITable.Table {
         val headers = arrayListOf("Id", "Nom", "Domaine", "Alias")
         val rows = arrayListOf<UITable.Row>()
-        organizationRepository.findAll().forEach {
-            rows.add(UITable.Row(arrayListOf(it.id.toString(), it.name?:"", it.domain?:"", it.aliases?:""), it.id.toString()))
+        if (orgas == null) {
+            organizationRepository.findAll().forEach { orga ->
+                rows.add(UITable.Row(arrayListOf(orga.id.toString(), orga.name?:"", orga.domain?:"", orga.aliases?:""), orga.id.toString()))
+            }
+        } else {
+            orgas.forEach { orga ->
+                rows.add(UITable.Row(arrayListOf(orga.id.toString(), orga.name?:"", orga.domain?:"", orga.aliases?:""), orga.id.toString()))
+            }
         }
-        return UITable.table("Liste des organisations", "orgas",  headers, rows)
+        return UITable.table("Liste des organisations",  headers, rows)
     }
 
     fun getUIDisplay(orga : Organization) : UIDisplay.Table {
@@ -43,6 +49,16 @@ class OrganizationService {
         fields.add(UIDisplay.field("Groupes", orga.groups.joinToString("<br>") { it.name?:""} ?:""))
         fields.add(UIDisplay.field("Utilisateurs", orga.users.joinToString("<br>") { user -> "${user.firstname} ${user.lastname}" } ?:""))
         return UIDisplay.table(fields)
+    }
+
+    fun addDefaults(model: MutableMap<String, Any>) {
+        model["object"] = "Organisation"
+        model["url"] = "orgas"
+    }
+
+    fun getUITableSearch(query: String): UITable.Table {
+        val orgas = organizationRepository.findByNameContainingOrDomainContainingOrAliasesContaining(query, query, query)
+        return getUITable(orgas)
     }
 
 }

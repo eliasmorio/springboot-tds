@@ -1,9 +1,18 @@
 {{ >main/header }}
 
-{{ #message }}
-{{ >components/message }}
-{{ /message }}
+{{ >components/appTitle }}
+<div class="ui segment">
 
-{{ >components/table }}
+        <button class="ui button secondary" onclick="window.location.href='/{{url}}/new'">
+            <i class="plus icon"></i>
+            Ajouter
+        </button>
+    {{ #table }}
+        {{ >components/table }}
+    {{ /table }}
+    {{ #message }}
+        {{ >components/message }}
+    {{ /message }}
+</div>
 
 {{ >main/footer }}

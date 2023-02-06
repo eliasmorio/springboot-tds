@@ -7,6 +7,7 @@ import edu.spring.td2.services.ui.UIForm
 import edu.spring.td2.services.ui.UITable
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import javax.management.Query
 
 @Service
 class GroupService {
@@ -15,7 +16,7 @@ class GroupService {
     lateinit var groupRepository: GroupRepository
 
     fun getUIForm(group : Group ) : UIForm.Form {
-        val form = UIForm.Form("Modifier un groupe", "POST", "groups")
+        val form = UIForm.Form("Modifier un groupe", "POST")
         if (group.id != null) {
             form.addField(UIForm.inputField("id", "hidden", "", group.id.toString()))
         }
@@ -24,13 +25,19 @@ class GroupService {
         return form
     }
 
-    fun getUITable() : UITable.Table {
+    fun getUITable(groups:List<Group>? = null) : UITable.Table {
         val headers = arrayListOf("Id", "Nom", "Email")
         val rows = arrayListOf<UITable.Row>()
-        groupRepository.findAll().forEach {
-            rows.add(UITable.Row(arrayListOf(it.id.toString(), it.name?:"", it.email?:""), it.id.toString()))
+        if (groups == null){
+            groupRepository.findAll().forEach { group ->
+                rows.add(UITable.Row(arrayListOf(group.id.toString(), group.name?:"", group.email?:""), group.id.toString()))
+            }
+        } else {
+            groups.forEach { group ->
+                rows.add(UITable.Row(arrayListOf(group.id.toString(), group.name?:"", group.email?:""), group.id.toString()))
+            }
         }
-        return UITable.table("Liste des groupes", "groups",  headers, rows)
+        return UITable.table("Liste des groupes",  headers, rows)
     }
 
     fun getUIDisplay(group : Group) : UIDisplay.Table {
@@ -42,4 +49,15 @@ class GroupService {
         fields.add(UIDisplay.field("Utilisateurs", group.users.joinToString("<br>") { user -> "${user.firstname} ${user.lastname}" } ?:""))
         return UIDisplay.table(fields)
     }
+
+    fun addDefaults(model: MutableMap<String, Any>) {
+        model["object"] = "Groupe"
+        model["url"] = "groups"
+    }
+
+    fun getUITableSearch(query: String):UITable.Table {
+        val groups = groupRepository.findByNameContainingOrEmailContainingOrAliasesContaining(query, query, query)
+        return getUITable(groups)
+    }
+
 }

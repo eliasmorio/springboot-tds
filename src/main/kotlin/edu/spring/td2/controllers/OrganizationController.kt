@@ -35,6 +35,7 @@ class OrganizationController {
 
     @GetMapping("", "/")
     fun index(model: ModelMap, attrs: RedirectAttributes) : String{
+        organizationService.addDefaults(model)
         model["table"] = organizationService.getUITable()
         return "entity/index"
     }
@@ -45,12 +46,14 @@ class OrganizationController {
         model["orga"] = organiaztionRepository.findById(id).get()
         if(model["orga"] == null)
             return "redirect:$mapping" //TODO : display error
+        organizationService.addDefaults(model)
         model["table"] = organizationService.getUIDisplay(model["orga"] as Organization)
         return "entity/display"
     }
 
     @GetMapping("/new")
     fun new(model: ModelMap) : String{
+        organizationService.addDefaults(model)
         model["form"] = organizationService.getUIForm(Organization())
         return "entity/form"
     }
@@ -67,6 +70,7 @@ class OrganizationController {
         model["orga"] = organiaztionRepository.findById(id).get()
         if(model["orga"] == null)
             return "redirect:$mapping" //TODO : display error
+        organizationService.addDefaults(model)
         model["form"] = organizationService.getUIForm(model["orga"] as Organization)
         return "entity/form"
     }
@@ -76,7 +80,7 @@ class OrganizationController {
                @PathVariable id: Int,
                attrs: RedirectAttributes) : String{
         val org = organiaztionRepository.findById(id).get()
-        attrs.addFlashAttribute("message", UIMessage.deleteMessage(org.name, mapping, id))
+        attrs.addFlashAttribute("message", UIMessage.deleteMessage(org.name!!, mapping, id))
         return "redirect:/orgas"
     }
 
@@ -87,6 +91,13 @@ class OrganizationController {
         return "redirect:$mapping"
     }
 
+    @GetMapping("/search")
+    fun search(model: ModelMap, @RequestParam query: String) : String{
+        organizationService.addDefaults(model)
+        model["table"] = organizationService.getUITableSearch(query)
+        model["query"] = query
+        return "entity/index"
+    }
 
 
 

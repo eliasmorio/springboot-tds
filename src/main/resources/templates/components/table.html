@@ -1,4 +1,4 @@
-{{ #table }}
+
     <table class="ui table">
         <thead>
         <tr>
@@ -10,26 +10,39 @@
         </thead>
         <tbody>
         {{ #rows }}
-            <tr>
+            <tr style="cursor: pointer" onclick="window.location.href='/{{url}}/details/{{id}}'">
                 {{ #columns }}
                     <td>{{ . }}</td>
                 {{ /columns }}
                 <td>
-                    <button class="circular ui icon button" onclick="window.location.href='/{{obj}}/display/{{ id }}'">
+                    <a href="/{{url}}/display/{{id}}" class="circular ui icon basic button">
                         <i class="icon eye"></i>
-                    </button>
-                    <button class="circular ui icon button" onclick="window.location.href='/{{obj}}/edit/{{ id }}'">
+                    </a>
+                    <a href="/{{url}}/edit/{{id}}" class="circular ui icon basic button">
                         <i class="icon edit"></i>
-                    </button>
-                    <button class="circular ui icon button negative" onclick="window.location.href='/{{obj}}/delete/{{ id }}'">
+                    </a>
+                    <a href="/{{url}}/delete/{{id}}" class="circular ui icon basic button negative">
                         <i class="icon times"></i>
-                    </button>
+                    </a>
                 </td>
             </tr>
-
         {{ /rows }}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="6">
+                    <div class="ui right floated pagination menu">
+                        <div class="ui search">
+                            <form action="/{{url}}/search" method="get">
+                                <div class="ui icon input">
+                                    <input type="text" name="query" placeholder="Rechercher..." value="{{#query}}{{query}}{{/query}}">
+                                    <i class="search icon"></i>
+                                </div>
+                                <button type="submit" style="display: none;"></button>
+                            </form>
+                            <div class="results"></div>
+                        </div>
+                    </div>
+            </tr>
+        </tfoot>
     </table>
-
-
-
-{{ /table }}
