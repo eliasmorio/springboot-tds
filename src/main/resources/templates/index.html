@@ -1,21 +1,45 @@
 {{ >main/header }}
 
-<h1>Springboot TD n°2</h1>
-
-<a href="/groups">Groups
-<h2>Group</h2>
-{{ nGroups }} Groupes
-</a>
+<div class="column">
+    <div class="ui dividing header">
+        <i class="envelope icon"></i>
+        <div class="content">
+            Springboot TD n°2
+            <div class="sub header">Application Messagerie</div>
+        </div>
+    </div>
+</div>
 
 <a href="/orgas">
-<h2>Organization</h2>
-{{ nOrgas }} Organisations
+    <div class="ui top attached header">
+        <i class="industry icon red bordered"></i>
+        <div class="content">
+            Organisations
+            <div class="sub header">{{ nOrgas }}</div>
+        </div>
+    </div>
 </a>
 
 <a href="/users">
-<h2>User</h2>
-{{ nUsers }} Utilisateurs
+    <div class="ui top attached header">
+        <i class="user icon green bordered"></i>
+        <div class="content">
+            Utilisateurs
+            <div class="sub header">{{ nUsers }}</div>
+        </div>
+    </div>
 </a>
+
+<a href="/groups">
+    <div class="ui top attached header">
+        <i class="group  icon blue bordered"></i>
+        <div class="content">
+            Groupes
+            <div class="sub header">{{ nGroups }}</div>
+        </div>
+    </div>
+</a>
+
 
 
 {{ >main/footer }}
