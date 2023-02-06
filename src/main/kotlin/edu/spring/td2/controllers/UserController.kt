@@ -69,8 +69,8 @@ class UserController {
             addMsg(false, attrs, "Erreur", "", "Cette utilisateur n'existe pas")
             return "redirect:/users"
         }
-        model["user"] = user.get()
-        return "users/display"
+        model["table"] = userService.getUIDetailTable(user.get())
+        return "entityDisplay"
     }
 
     @GetMapping("/delete/{id}")

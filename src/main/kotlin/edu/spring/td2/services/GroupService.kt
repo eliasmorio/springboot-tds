@@ -2,6 +2,7 @@ package edu.spring.td2.services
 
 import edu.spring.td2.entities.Group
 import edu.spring.td2.repositories.GroupRepository
+import edu.spring.td2.services.ui.UIDisplay
 import edu.spring.td2.services.ui.UIForm
 import edu.spring.td2.services.ui.UITable
 import org.springframework.beans.factory.annotation.Autowired
@@ -30,5 +31,15 @@ class GroupService {
             rows.add(UITable.Row(arrayListOf(it.id.toString(), it.name?:"", it.email?:""), it.id.toString()))
         }
         return UITable.table("Liste des groupes", "groups",  headers, rows)
+    }
+
+    fun getUIDisplay(group : Group) : UIDisplay.Table {
+        val fields = arrayListOf<UIDisplay.Field>()
+        fields.add(UIDisplay.field("Id", group.id.toString()))
+        fields.add(UIDisplay.field("Nom", group.name?:""))
+        fields.add(UIDisplay.field("Email", group.email?:""))
+        fields.add(UIDisplay.field("Organisation", group.organization?.name?:""))
+        fields.add(UIDisplay.field("Utilisateurs", group.users.joinToString("<br>") { user -> "${user.firstname} ${user.lastname}" } ?:""))
+        return UIDisplay.table(fields)
     }
 }

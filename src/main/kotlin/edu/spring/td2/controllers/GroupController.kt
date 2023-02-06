@@ -68,8 +68,8 @@ class GroupController {
             addMsg(false, attrs, "Erreur", "", "Ce groupe n'existe pas")
             return "redirect:/groups"
         }
-        model["group"] = group.get()
-        return "groups/display"
+        model["table"] = groupService.getUIDisplay(group.get())
+        return "entityDisplay"
     }
 
     @GetMapping("/delete/{id}")

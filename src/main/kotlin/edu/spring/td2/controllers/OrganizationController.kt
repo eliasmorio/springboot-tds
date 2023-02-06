@@ -39,6 +39,16 @@ class OrganizationController {
         return "entityIndex"
     }
 
+    @GetMapping("/display/{id}")
+    fun display(model: ModelMap,
+                @PathVariable id: Int) : String{
+        model["orga"] = organiaztionRepository.findById(id).get()
+        if(model["orga"] == null)
+            return "redirect:$mapping" //TODO : display error
+        model["table"] = organizationService.getUIDisplay(model["orga"] as Organization)
+        return "entityDisplay"
+    }
+
     @GetMapping("/new")
     fun new(model: ModelMap) : String{
         model["form"] = organizationService.getUIForm(Organization())
@@ -76,6 +86,8 @@ class OrganizationController {
         organiaztionRepository.delete(org)
         return "redirect:$mapping"
     }
+
+
 
 
 
