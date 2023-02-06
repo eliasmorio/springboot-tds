@@ -1,0 +1,30 @@
+{{ #form }}
+    <form method="{{method}}" action="/{{obj}}/store" class="form ui">
+        {{ #fields }}
+        <div class="field">
+            <label for="{{name}}">{{label}}</label>
+
+            {{ #select }}
+                <select name="{{name}}" id="{{name}}" class="ui dropdown">
+                    {{ #options }}
+                    <option value="{{value}}">{{label}}</option>
+                    {{ /options }}
+                </select>
+            {{ /select }}
+
+            {{ #textArea }}
+                <textarea name="{{name}}" id="{{name}}" rows="5" class="ui input"></textarea>
+            {{ /textArea }}
+
+            {{ #input }}
+                <input type="{{type}}" name="{{name}}" id="{{name}}" class="ui input" placeholder="{{label}}">
+            {{ /input }}
+
+        </div>
+        {{ /fields }}
+
+        <button class="ui positive button" type="submit">Validate</button>
+        <button class="ui button" type="reset" onclick="window.location.href='/{{obj}}'">Cancel</button>
+    </form>
+{{ /form }}
+

@@ -3,7 +3,8 @@ package edu.spring.td2.controllers
 import edu.spring.td2.entities.Group
 import edu.spring.td2.entities.User
 import edu.spring.td2.repositories.GroupRepository
-import edu.spring.td2.services.UIMessage
+import edu.spring.td2.services.GroupService
+import edu.spring.td2.services.ui.UIMessage
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
@@ -16,6 +17,8 @@ class GroupController {
 
     @Autowired
     lateinit var groupRepository: GroupRepository
+    @Autowired
+    lateinit var groupService: GroupService
 
     private fun addMsg(resp:Boolean, attrs: RedirectAttributes, title:String, success:String, error:String){
         if(resp) {
@@ -35,8 +38,8 @@ class GroupController {
 
     @GetMapping("/new")
     fun new(model: ModelMap) : String{
-        model["group"] = User()
-        return "groups/new"
+        model["form"] = groupService.getUIForm(Group())
+        return "new"
     }
 
     @PostMapping("/store")

@@ -2,7 +2,8 @@ package edu.spring.td2.controllers
 
 import edu.spring.td2.entities.User
 import edu.spring.td2.repositories.UserRepository
-import edu.spring.td2.services.UIMessage
+import edu.spring.td2.services.ui.UIMessage
+import edu.spring.td2.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
@@ -15,6 +16,8 @@ class UserController {
 
     @Autowired
     lateinit var userRepository: UserRepository
+    @Autowired
+    lateinit var userService: UserService
 
     private fun addMsg(resp:Boolean, attrs: RedirectAttributes, title:String, success:String, error:String){
         if(resp) {
@@ -29,21 +32,17 @@ class UserController {
     @GetMapping("", "/")
     fun index(model: ModelMap) : String {
         model["users"] = userRepository.findAll()
-        for (user in userRepository.findAll()){
-            println(user)
-        }
         return "users/index"
     }
 
     @GetMapping("/new")
     fun new(model: ModelMap) : String{
-        model["user"] = User()
-        return "users/new"
+        model["form"] = userService.getUIForm(User())
+        return "new"
     }
 
     @PostMapping("/store")
     fun store(@ModelAttribute user: User?) : String{
-        println(user)
         if (user != null) {
             userRepository.saveAndFlush(user)
         }
