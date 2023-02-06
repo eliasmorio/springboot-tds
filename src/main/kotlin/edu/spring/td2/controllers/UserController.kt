@@ -72,6 +72,27 @@ class UserController {
         return "users/display"
     }
 
+    @GetMapping("/delete/{id}")
+    fun delete(model: ModelMap, @PathVariable id: Int, attrs: RedirectAttributes) : String{
+        val user = userRepository.findById(id).get()
+
+        val msg = UIMessage.message("Confirmation de suppression",
+            "Confirmez-vous la suppression de '<em>${user.firstname} ${user.lastname} </em>' ?",
+            "red",
+            "question circle",
+            "/users/delete/$id",
+            "/users")
+        attrs.addFlashAttribute("message", msg)
+        return "redirect:/users"
+    }
+
+    @PostMapping("/delete/{id}")
+    fun destroy(@PathVariable id: Int) : String{
+        val user = userRepository.findById(id).get()
+        userRepository.delete(user)
+        return "redirect:/users"
+    }
+
 
 
 
