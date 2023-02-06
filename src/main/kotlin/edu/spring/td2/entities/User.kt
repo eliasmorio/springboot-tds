@@ -19,6 +19,6 @@ open class User {
     open var organization: Organization? = null
 
     @ManyToMany(mappedBy = "users")
-    open var groups: HashSet<Group> = hashSetOf()
+    open var groups: MutableSet<Group> = mutableSetOf()
 
 }

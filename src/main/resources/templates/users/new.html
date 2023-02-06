@@ -1,0 +1,24 @@
+{{ >main/header }}
+
+<form method="post" action="/users/store" class="form ui">
+    <div class="field">
+        <label for="firstname">firstName</label>
+        <input id="firstname" type="text" name="firstname" placeholder="Firstname">
+    </div>
+    <div class="field">
+        <label for="lastname">lastName</label>
+        <input id="lastname" type="text" name="lastname" placeholder="Lastname">
+    </div>
+    <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="text" name="email" placeholder="Email">
+    </div>
+
+    <button class="ui positive button" type="submit">Validate</button>
+    <button class="ui button" type="reset">Cancel</button>
+
+</form>
+
+
+
+{{ >main/footer }}
