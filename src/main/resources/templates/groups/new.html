@@ -1,0 +1,20 @@
+{{ >main/header }}
+
+<form method="post" action="/groups/store" class="form ui">
+    <div class="field">
+        <label for="name">Name</label>
+        <input id="name" type="text" name="name" placeholder="Name">
+    </div>
+    <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="text" name="email" placeholder="Email">
+    </div>
+
+    <button class="ui positive button" type="submit">Validate</button>
+    <button class="ui button" type="reset">Cancel</button>
+
+</form>
+
+
+
+{{ >main/footer }}
