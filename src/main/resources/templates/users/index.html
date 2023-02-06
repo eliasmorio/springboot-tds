@@ -1,0 +1,49 @@
+{{ >main/header }}
+
+<i class="envelope icon"></i>
+<h1>SpringBoot TD n°2</h1>
+
+<button class="ui secondary button" onclick="window.location.href='/users/new'">
+    <i class="large plus icon"></i>
+    Ajouter un utilisateur...
+</button>
+
+{{ #message }}
+{{ >components/message }}
+{{ /message }}
+
+<table class="ui table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Prénom</th>
+        <th>Nom</th>
+        <th>Email</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {{ #orgas }}
+        <tr>
+            <td>{{ id }}</td>
+            <td>{{ firstname }}</td>
+            <td>{{ lastname }}</td>
+            <td>{{ email }}</td>
+            <td>
+                <button class="circular ui icon button" onclick="window.location.href='/users/display/{{ id }}'">
+                    <i class="icon eye"></i>
+                </button>
+                <button class="circular ui icon button" onclick="window.location.href='/users/edit/{{ id }}'">
+                    <i class="icon edit"></i>
+                </button>
+                <button class="circular ui icon button negative" onclick="window.location.href='/users/delete/{{ id }}'">
+                    <i class="icon times"></i>
+                </button>
+            </td>
+        </tr>
+    {{ /orgas }}
+    </tbody>
+</table>
+
+
+{{ >main/footer }}
