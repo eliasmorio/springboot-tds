@@ -6,10 +6,14 @@
 
     {{ #table }}
 
-    <button class="ui button secondary" onclick="window.location.href='/{{url}}/new'">
+    <a class="ui button" href="/{{url}}">
+        <i class="icon arrow left"></i>
+        Retour
+    </a>
+    <a class="ui button secondary" href="/{{url}}/new">
         <i class="plus icon"></i>
         Ajouter
-    </button>
+    </a>
 
 
         {{ >components/displayTable }}

@@ -3,10 +3,14 @@
 {{ >components/appTitle }}
 <div class="ui segment">
 
-        <button class="ui button secondary" onclick="window.location.href='/{{url}}/new'">
-            <i class="plus icon"></i>
-            Ajouter
-        </button>
+    <a class="ui button" href="/">
+        <i class="icon arrow left"></i>
+        Retour
+    </a>
+    <a class="ui button secondary" href="/{{url}}/new">
+        <i class="plus icon"></i>
+        Ajouter
+    </a>
     {{ #table }}
         {{ >components/table }}
     {{ /table }}
