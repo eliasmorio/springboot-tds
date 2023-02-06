@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
+import org.springframework.web.servlet.view.RedirectView
 
 @Controller
 @RequestMapping("/groups")
@@ -32,13 +33,23 @@ class GroupController {
     @GetMapping("", "/")
     fun index(model: ModelMap) : String {
         model["table"] = groupService.getUITable()
-        return "entityIndex"
+        return "entity/index"
     }
 
     @GetMapping("/new")
     fun new(model: ModelMap) : String{
         model["form"] = groupService.getUIForm(Group())
-        return "entityForm"
+        return "entity/form"
+    }
+
+    @GetMapping("/edit/{id}")
+    fun edit(model: ModelMap,
+             @PathVariable id: Int) : String{
+        model["group"] = groupRepository.findById(id).get()
+        if(model["group"] == null)
+            return "redirect:/groups" //TODO : display error
+        model["form"] = groupService.getUIForm(model["group"] as Group)
+        return "entity/form"
     }
 
     @PostMapping("/store")
@@ -49,20 +60,9 @@ class GroupController {
         return "redirect:/groups"
     }
 
-    @GetMapping("/edit/{id}")
-    fun edit(model: ModelMap,
-             @PathVariable id: Int) : String{
-        model["group"] = groupRepository.findById(id).get()
-        if(model["group"] == null)
-            return "redirect:/groups" //TODO : display error
-        model["form"] = groupService.getUIForm(model["group"] as Group)
-        return "entityForm"
-    }
-
     @GetMapping("/display/{id}")
     fun display(model: ModelMap, @PathVariable id: Int,
-                attrs: RedirectAttributes
-    ) : String{
+                attrs: RedirectAttributes) : String{
         val group =  groupRepository.findById(id)
         if (!group.isPresent) {
             addMsg(false, attrs, "Erreur", "", "Ce groupe n'existe pas")

@@ -36,7 +36,7 @@ class OrganizationController {
     @GetMapping("", "/")
     fun index(model: ModelMap, attrs: RedirectAttributes) : String{
         model["table"] = organizationService.getUITable()
-        return "entityIndex"
+        return "entity/index"
     }
 
     @GetMapping("/display/{id}")
@@ -46,13 +46,13 @@ class OrganizationController {
         if(model["orga"] == null)
             return "redirect:$mapping" //TODO : display error
         model["table"] = organizationService.getUIDisplay(model["orga"] as Organization)
-        return "entityDisplay"
+        return "entity/display"
     }
 
     @GetMapping("/new")
     fun new(model: ModelMap) : String{
         model["form"] = organizationService.getUIForm(Organization())
-        return "entityForm"
+        return "entity/form"
     }
 
     @PostMapping("/store")
@@ -68,7 +68,7 @@ class OrganizationController {
         if(model["orga"] == null)
             return "redirect:$mapping" //TODO : display error
         model["form"] = organizationService.getUIForm(model["orga"] as Organization)
-        return "entityForm"
+        return "entity/form"
     }
 
     @GetMapping("/delete/{id}")

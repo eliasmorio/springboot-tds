@@ -32,13 +32,13 @@ class UserController {
     @GetMapping("", "/")
     fun index(model: ModelMap) : String {
         model["table"] = userService.getUITable()
-        return "entityIndex"
+        return "entity/index"
     }
 
     @GetMapping("/new")
     fun new(model: ModelMap) : String{
         model["form"] = userService.getUIForm(User())
-        return "entityForm"
+        return "entity/form"
     }
 
     @GetMapping("/edit/{id}")
@@ -48,7 +48,7 @@ class UserController {
         if(model["user"] == null)
             return "redirect:/users" //TODO : display error
         model["form"] = userService.getUIForm(model["user"] as User)
-        return "entityForm"
+        return "entity/form"
     }
 
     @PostMapping("/store")
@@ -70,7 +70,7 @@ class UserController {
             return "redirect:/users"
         }
         model["table"] = userService.getUIDetailTable(user.get())
-        return "entityDisplay"
+        return "entity/display"
     }
 
     @GetMapping("/delete/{id}")
