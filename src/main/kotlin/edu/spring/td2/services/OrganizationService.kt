@@ -14,10 +14,12 @@ class OrganizationService {
 
     fun getUIForm(orga : Organization ) : UIForm.Form {
         val form = UIForm.Form("Modifier une organisation", "POST", "orgas")
-        form.addField(UIForm.FormField("id", "hidden", "", orga.id.toString()))
-        form.addField(UIForm.FormField("name", "text", "Nom", orga.name))
-        form.addField(UIForm.FormField("domain", "text", "Domaine", orga.domain!!))
-        form.addField(UIForm.FormField("aliases", "text", "Alias", orga.aliases!!))
+        if (orga.id != null) {
+            form.addField(UIForm.inputField("id", "hidden", "", orga.id.toString()))
+        }
+        form.addField(UIForm.inputField("name", "text", "Nom", orga.name?:""))
+        form.addField(UIForm.inputField("domain", "text", "Domaine", orga.domain?:""))
+        form.addField(UIForm.inputField("aliases", "text", "Alias", orga.aliases?:""))
         return form
     }
 

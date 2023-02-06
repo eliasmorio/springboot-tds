@@ -1,7 +1,7 @@
 package edu.spring.td2.repositories
 
 import edu.spring.td2.entities.Organization
-import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.repository.CrudRepository
 
-interface OrganizationRepository: JpaRepository<Organization, Int> {
+interface OrganizationRepository: CrudRepository<Organization, Int> {
 }

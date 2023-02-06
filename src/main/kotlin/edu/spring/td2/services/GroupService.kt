@@ -14,9 +14,11 @@ class GroupService {
 
     fun getUIForm(group : Group ) : UIForm.Form {
         val form = UIForm.Form("Modifier un groupe", "POST", "groups")
-        form.addField(UIForm.FormField("id", "hidden", "", group.id.toString()))
-        form.addField(UIForm.FormField("name", "text", "Nom", group.name!!))
-        form.addField(UIForm.FormField("email", "text", "Email", group.email!!))
+        if (group.id != null) {
+            form.addField(UIForm.inputField("id", "hidden", "", group.id.toString()))
+        }
+        form.addField(UIForm.inputField("name", "text", "Nom", group.name?:""))
+        form.addField(UIForm.inputField("email", "text", "Email", group.email?:""))
         return form
     }
 }

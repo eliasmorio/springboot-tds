@@ -1,7 +1,6 @@
 package edu.spring.td2.controllers
 
 import edu.spring.td2.entities.Group
-import edu.spring.td2.entities.User
 import edu.spring.td2.repositories.GroupRepository
 import edu.spring.td2.services.GroupService
 import edu.spring.td2.services.ui.UIMessage
@@ -39,7 +38,7 @@ class GroupController {
     @GetMapping("/new")
     fun new(model: ModelMap) : String{
         model["form"] = groupService.getUIForm(Group())
-        return "new"
+        return "entityForm"
     }
 
     @PostMapping("/store")

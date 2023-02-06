@@ -42,12 +42,12 @@ class OrganizationController {
     @GetMapping("/new")
     fun new(model: ModelMap) : String{
         model["form"] = organizationService.getUIForm(Organization())
-        return "new"
+        return "entityForm"
     }
 
     @PostMapping("/store")
     fun store(@ModelAttribute orga:Organization?) : String{
-        organiaztionRepository.saveAndFlush(orga!!)
+        organiaztionRepository.save(orga!!)
         return "redirect:$mapping"
     }
 
@@ -57,7 +57,8 @@ class OrganizationController {
         model["orga"] = organiaztionRepository.findById(id).get()
         if(model["orga"] == null)
             return "redirect:$mapping" //TODO : display error
-        return "orgas/edit"
+        model["form"] = organizationService.getUIForm(model["orga"] as Organization)
+        return "entityForm"
     }
 
     @GetMapping("/delete/{id}")

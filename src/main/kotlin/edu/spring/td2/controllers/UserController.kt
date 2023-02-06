@@ -38,15 +38,7 @@ class UserController {
     @GetMapping("/new")
     fun new(model: ModelMap) : String{
         model["form"] = userService.getUIForm(User())
-        return "new"
-    }
-
-    @PostMapping("/store")
-    fun store(@ModelAttribute user: User?) : String{
-        if (user != null) {
-            userRepository.saveAndFlush(user)
-        }
-        return "redirect:/users"
+        return "entityForm"
     }
 
     @GetMapping("/edit/{id}")
@@ -55,8 +47,19 @@ class UserController {
         model["user"] = userRepository.findById(id).get()
         if(model["user"] == null)
             return "redirect:/users" //TODO : display error
-        return "users/edit"
+        model["form"] = userService.getUIForm(model["user"] as User)
+        return "entityForm"
     }
+
+    @PostMapping("/store")
+    fun store(@ModelAttribute user: User?) : String{
+        if (user != null) {
+            userRepository.save(user)
+        }
+        return "redirect:/users"
+    }
+
+
 
     @GetMapping("/display/{id}")
     fun display(model: ModelMap, @PathVariable id: Int,
