@@ -7,10 +7,7 @@ import edu.spring.td2.services.UIMessage
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.ModelAttribute
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
 
 @Controller
@@ -48,6 +45,15 @@ class GroupController {
             groupRepository.save(group)
         }
         return "redirect:/groups"
+    }
+
+    @GetMapping("/edit/{id}")
+    fun edit(model: ModelMap,
+             @PathVariable id: Int) : String{
+        model["group"] = groupRepository.findById(id).get()
+        if(model["group"] == null)
+            return "redirect:/groups" //TODO : display error
+        return "groups/edit"
     }
 
 }
