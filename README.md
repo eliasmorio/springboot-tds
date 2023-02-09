@@ -18,3 +18,9 @@ Le TD1 consiste à créer une application web permettant de gérer des items (cr
 , qui seront stockés dans la session.
 
 
+## TD2
+
+![Unit Test](https://github.com/EliasMorio/springboot-tds/actions/workflows/maven.yml/badge.svg?branch=td2)
+
+[TD2](https://github.com/EliasMorio/springboot-tds/tree/td2)
+
