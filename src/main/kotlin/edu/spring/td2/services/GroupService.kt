@@ -7,13 +7,14 @@ import edu.spring.td2.services.ui.UIForm
 import edu.spring.td2.services.ui.UITable
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import javax.management.Query
 
 @Service
 class GroupService {
 
     @Autowired
     lateinit var groupRepository: GroupRepository
+    @Autowired
+    lateinit var organizationService: OrganizationService
 
     fun getUIForm(group : Group ) : UIForm.Form {
         val form = UIForm.Form("Modifier un groupe", "POST")
@@ -22,6 +23,8 @@ class GroupService {
         }
         form.addField(UIForm.inputField("name", "text", "Nom", group.name?:""))
         form.addField(UIForm.inputField("email", "text", "Email", group.email?:""))
+        form.addField(organizationService.getUISelect(group.organization?.id))
+
         return form
     }
 

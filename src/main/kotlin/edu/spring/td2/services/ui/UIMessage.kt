@@ -21,7 +21,6 @@ class UIMessage() {
                 "question circle",
                 "$objType/delete/$id",
                 "/$objType")
-
-
     }
+
 }

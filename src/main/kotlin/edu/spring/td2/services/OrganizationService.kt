@@ -61,4 +61,14 @@ class OrganizationService {
         return getUITable(orgas)
     }
 
+    fun getUISelect(idSelected : Int?) : UIForm.FormField
+    {
+        val orgas = organizationRepository.findAll()
+        val options = arrayListOf<UIForm.FormOption>()
+        orgas.forEach { orga ->
+            options.add(UIForm.selectOption(orga.id.toString(), orga.name?:"", orga.id == idSelected))
+        }
+        return UIForm.selectField("organization", "Organisation", "select", options)
+    }
+
 }

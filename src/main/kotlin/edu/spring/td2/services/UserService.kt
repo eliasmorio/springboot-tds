@@ -1,6 +1,7 @@
 package edu.spring.td2.services
 
 import edu.spring.td2.entities.User
+import edu.spring.td2.repositories.GroupRepository
 import edu.spring.td2.repositories.OrganizationRepository
 import edu.spring.td2.repositories.UserRepository
 import edu.spring.td2.services.ui.UIDisplay
@@ -16,6 +17,10 @@ class UserService {
     lateinit var userRepository: UserRepository
     @Autowired
     lateinit var organizationRepository: OrganizationRepository
+    @Autowired
+    lateinit var organizationService: OrganizationService
+    @Autowired
+    lateinit var groupRepository: GroupRepository
 
 
     fun getUIForm(user: User) : UIForm.Form {
@@ -26,14 +31,12 @@ class UserService {
         form.addField(UIForm.inputField("firstname", "text", "Prénom", user.firstname?:""))
         form.addField(UIForm.inputField("lastname", "text", "Nom", user.lastname?:""))
         form.addField(UIForm.inputField("email", "email", "Email", user.email?:""))
-        val organizations = arrayListOf<UIForm.FormOption>()
-
-        organizations.add(UIForm.selectOption("-1", "Sélectionnez une organisation", true))
-
-        organizationRepository.findAll().forEach {
-            organizations.add(UIForm.selectOption(it.id.toString(), it.name?:"", user.organization?.id == it.id))
+        form.addField(organizationService.getUISelect(user.organization?.id))
+        val groups = hashMapOf<String, String>()
+        groupRepository.findAll().forEach {
+            groups[it.id.toString()] = it.name?:""
         }
-        form.addField(UIForm.selectField("organization", "select", "Organisation", organizations))
+        form.addField(UIForm.multiSelectField("groups", "Groupes", groups, user.groups.map { it.id.toString() }))
         return form
     }
 
@@ -71,7 +74,8 @@ class UserService {
     fun getUITableSearch(query: String): Any? {
         val users = userRepository.findByFirstnameContainingOrLastnameContainingOrEmailContaining(query, query, query)
         return getUITable(users)
-
     }
+
+
 
 }

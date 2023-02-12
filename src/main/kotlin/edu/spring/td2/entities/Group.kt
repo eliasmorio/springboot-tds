@@ -16,8 +16,21 @@ open class Group {
     @ManyToOne
     open var organization: Organization? = null
 
-    @ManyToMany
-    @JoinTable(
-        name = "user_group"
-    )
-    open var users: MutableSet<User> = mutableSetOf()}
+    @ManyToMany(mappedBy = "groups")
+    open var users: MutableSet<User> = mutableSetOf()
+
+
+    fun addUser(user: User) {
+        if (users.contains(user)) return
+        users.add(user)
+        user.groups.add(this)
+    }
+
+    fun removeUser(user: User) {
+        if (!users.contains(user)) return
+        users.remove(user)
+        user.groups.remove(this)
+    }
+}
+
+

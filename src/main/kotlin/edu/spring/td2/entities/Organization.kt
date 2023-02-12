@@ -6,11 +6,14 @@ import jakarta.persistence.*
 @Table(name = "TD2_ORGANIZATION")
 open class Organization {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     open var id: Int? = null
 
-    open lateinit var name: String
+    @Column(length = 60)
+    open  var name : String? = null
+    @Column(nullable = false, length = 45)
     open var domain: String? = null
+    @Column(nullable = false, length = 45)
     open var aliases: String? = null
 
 
@@ -19,6 +22,10 @@ open class Organization {
 
     @OneToMany
     open var users: MutableSet<User> = mutableSetOf()
+
+    override fun toString(): String {
+        return "Organization(id=$id, name='$name', domain=$domain, aliases=$aliases, groups=$groups, users=$users)"
+    }
 
 
 

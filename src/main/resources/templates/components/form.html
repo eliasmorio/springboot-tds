@@ -11,6 +11,19 @@
                 </select>
             {{ /select }}
 
+            {{ #multiSelect }}
+                <div class="ui fluid multiple search selection dropdown" id="{{name}}">
+                <input name="{{name}}" type="hidden" value="{{selectedOptions}}">
+                <i class="dropdown icon"></i>
+                <div class="default text"></div>
+                    <div class="menu">
+                        {{ #options }}
+                            <div class="item " data-value="{{value}}">{{label}}</div>
+                        {{ /options }}
+                    </div>
+                </div>
+            {{ /multiSelect }}
+
             {{ #textArea }}
                 <textarea name="{{name}}" id="{{name}}" rows="5" class="ui input"></textarea>
             {{ /textArea }}
@@ -25,4 +38,6 @@
         <button class="ui positive button" type="submit">Validate</button>
         <a class="ui button" type="reset" href="/{{url}}">Cancel</a>
     </form>
+
+
 
