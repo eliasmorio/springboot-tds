@@ -20,7 +20,7 @@ open class Organization {
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "organization")
     open var groups: MutableSet<Group> = mutableSetOf()
 
-    @OneToMany
+    @OneToMany(mappedBy = "organization")
     open var users: MutableSet<User> = mutableSetOf()
 
     override fun toString(): String {
