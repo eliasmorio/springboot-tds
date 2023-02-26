@@ -28,16 +28,16 @@ class GroupService {
         return form
     }
 
-    fun getUITable(groups:List<Group>? = null) : UITable.Table {
+    fun getUITable(groups:List<Group>? = null, group :Group? = null) : UITable.Table {
         val headers = arrayListOf("Id", "Nom", "Email")
         val rows = arrayListOf<UITable.Row>()
         if (groups == null){
-            groupRepository.findAll().forEach { group ->
-                rows.add(UITable.Row(arrayListOf(group.id.toString(), group.name?:"", group.email?:""), group.id.toString()))
+            groupRepository.findAll().forEach {
+                rows.add(UITable.Row(arrayListOf(it.id.toString(), it.name?:"", it.email?:""), it.id.toString(), it.id == group?.id))
             }
         } else {
-            groups.forEach { group ->
-                rows.add(UITable.Row(arrayListOf(group.id.toString(), group.name?:"", group.email?:""), group.id.toString()))
+            groups.forEach {
+                rows.add(UITable.Row(arrayListOf(it.id.toString(), it.name?:"", it.email?:""), it.id.toString(), it.id == group?.id))
             }
         }
         return UITable.table("Liste des groupes",  headers, rows)
@@ -48,6 +48,13 @@ class GroupService {
         fields.add(UIDisplay.field("Id", group.id.toString()))
         fields.add(UIDisplay.field("Nom", group.name?:""))
         fields.add(UIDisplay.field("Email", group.email?:""))
+        fields.add(UIDisplay.field("Organisation", group.organization?.name?:""))
+        fields.add(UIDisplay.field("Utilisateurs", group.users.joinToString("<br>") { user -> "${user.firstname} ${user.lastname}" } ?:""))
+        return UIDisplay.table(fields)
+    }
+
+    fun getDetails(group : Group) : UIDisplay.Table {
+        val fields = arrayListOf<UIDisplay.Field>()
         fields.add(UIDisplay.field("Organisation", group.organization?.name?:""))
         fields.add(UIDisplay.field("Utilisateurs", group.users.joinToString("<br>") { user -> "${user.firstname} ${user.lastname}" } ?:""))
         return UIDisplay.table(fields)

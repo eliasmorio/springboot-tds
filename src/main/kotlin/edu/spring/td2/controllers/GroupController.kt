@@ -98,4 +98,12 @@ class GroupController {
         return "entity/index"
     }
 
+    @GetMapping("/details/{id}")
+    fun details(model: ModelMap, @PathVariable id: Int) : String{
+        val group = groupRepository.findById(id).get()
+        groupService.addDefaults(model)
+        model["table"] = groupService.getUITable(group = group)
+        model["details"] = groupService.getDetails(group)
+        return "entity/index"
+    }
 }
