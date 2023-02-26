@@ -99,6 +99,15 @@ class OrganizationController {
         return "entity/index"
     }
 
+    @GetMapping("/details/{id}")
+    fun details(model: ModelMap, @PathVariable id: Int) : String{
+        val orga = organiaztionRepository.findById(id).get()
+        organizationService.addDefaults(model)
+        model["table"] = organizationService.getUITable(orga = orga)
+        model["details"] = organizationService.getDetails(orga)
+        return "entity/index"
+    }
+
 
 
 

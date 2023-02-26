@@ -25,16 +25,16 @@ class OrganizationService {
         return form
     }
 
-    fun getUITable(orgas : List<Organization>? = null) : UITable.Table {
+    fun getUITable(orgas : List<Organization>? = null, orga : Organization? = null) : UITable.Table {
         val headers = arrayListOf("Id", "Nom", "Domaine", "Alias")
         val rows = arrayListOf<UITable.Row>()
         if (orgas == null) {
-            organizationRepository.findAll().forEach { orga ->
-                rows.add(UITable.Row(arrayListOf(orga.id.toString(), orga.name?:"", orga.domain?:"", orga.aliases?:""), orga.id.toString()))
+            organizationRepository.findAll().forEach {
+                rows.add(UITable.Row(arrayListOf(it.id.toString(), it.name?:"", it.domain?:"", it.aliases?:""), it.id.toString(), it.id == orga?.id))
             }
         } else {
-            orgas.forEach { orga ->
-                rows.add(UITable.Row(arrayListOf(orga.id.toString(), orga.name?:"", orga.domain?:"", orga.aliases?:""), orga.id.toString()))
+            orgas.forEach {
+                rows.add(UITable.Row(arrayListOf(it.id.toString(), it.name?:"", it.domain?:"", it.aliases?:""), it.id.toString(), it.id == orga?.id))
             }
         }
         return UITable.table("Liste des organisations",  headers, rows)
@@ -46,6 +46,13 @@ class OrganizationService {
         fields.add(UIDisplay.field("Nom", orga.name?:""))
         fields.add(UIDisplay.field("Domaine", orga.domain?:""))
         fields.add(UIDisplay.field("Alias", orga.aliases?:""))
+        fields.add(UIDisplay.field("Groupes", orga.groups.joinToString("<br>") { it.name?:""} ?:""))
+        fields.add(UIDisplay.field("Utilisateurs", orga.users.joinToString("<br>") { user -> "${user.firstname} ${user.lastname}" } ?:""))
+        return UIDisplay.table(fields)
+    }
+
+    fun getDetails(orga: Organization):UIDisplay.Table {
+        val fields = arrayListOf<UIDisplay.Field>()
         fields.add(UIDisplay.field("Groupes", orga.groups.joinToString("<br>") { it.name?:""} ?:""))
         fields.add(UIDisplay.field("Utilisateurs", orga.users.joinToString("<br>") { user -> "${user.firstname} ${user.lastname}" } ?:""))
         return UIDisplay.table(fields)
