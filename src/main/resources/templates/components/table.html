@@ -1,5 +1,4 @@
-
-    <table class="ui table">
+ <table class="ui table">
         <thead>
         <tr>
             {{ #columns }}
@@ -10,7 +9,9 @@
         </thead>
         <tbody>
         {{ #rows }}
-            <tr style="cursor: pointer" onclick="window.location.href='/{{url}}/details/{{id}}'">
+            <tr style="cursor: pointer" onclick="window.location.href='/{{url}}/details/{{id}}'"
+                {{#selected}} class="active" {{/selected}}>
+
                 {{ #columns }}
                     <td>{{ . }}</td>
                 {{ /columns }}

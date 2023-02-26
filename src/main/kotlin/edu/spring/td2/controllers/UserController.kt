@@ -103,8 +103,8 @@ class UserController {
     fun details(model: ModelMap, @PathVariable id: Int) : String{
         val user = userRepository.findById(id).get()
         userService.addDefaults(model)
-        model["table"] = userService.getUITable()
-        model["details"] = user
+        model["table"] = userService.getUITable(user = user)
+        model["details"] = userService.getDetails(user)
         return "entity/index"
     }
 

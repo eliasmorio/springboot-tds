@@ -5,7 +5,7 @@ class UITable {
     class Table(val label : String, val columns : List<String>, val rows : List<Row>) {
     }
 
-    class Row(val columns : List<String>, val id : String? = null) {
+    class Row(val columns : List<String>, val id : String? = null, val selected : Boolean = false) {
     }
 
 

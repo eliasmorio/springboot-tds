@@ -14,9 +14,20 @@
     {{ #table }}
         {{ >components/table }}
     {{ /table }}
+
+    {{#details}}
+        <div>
+            {{#fields}}
+                <h4>{{label}}</h4>
+                <p>{{{value}}}</p>
+            {{/fields}}
+        </div>
+    {{/details}}
+
     {{ #message }}
         {{ >components/message }}
     {{ /message }}
+
 </div>
 
 {{ >main/footer }}

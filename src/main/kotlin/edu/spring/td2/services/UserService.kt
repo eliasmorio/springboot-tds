@@ -40,20 +40,28 @@ class UserService {
         return form
     }
 
-    fun getUITable(users : List<User>? = null) : UITable.Table {
+    fun getUITable(users : List<User>? = null, user: User? = null) : UITable.Table {
         val headers = arrayListOf("Id", "Prénom", "Nom", "Email")
         val rows = arrayListOf<UITable.Row>()
         if (users == null) {
             userRepository.findAll().forEach {
-                rows.add(UITable.Row(arrayListOf(it.id.toString(), it.firstname?:"", it.lastname?:"", it.email?:""), it.id.toString()))
+                rows.add(UITable.Row(arrayListOf(it.id.toString(), it.firstname?:"", it.lastname?:"", it.email?:""), it.id.toString(), it.id == user?.id))
             }
         } else{
             users.forEach {
-                rows.add(UITable.Row(arrayListOf(it.id.toString(), it.firstname?:"", it.lastname?:"", it.email?:""), it.id.toString()))
+                rows.add(UITable.Row(arrayListOf(it.id.toString(), it.firstname?:"", it.lastname?:"", it.email?:""), it.id.toString(), it.id == user?.id))
             }
         }
         return UITable.table("Liste des utilisateurs", headers, rows)
     }
+
+    fun getDetails(user:User) : UIDisplay.Table {
+        val fields = arrayListOf<UIDisplay.Field>()
+        fields.add(UIDisplay.field("Groupes", user.groups.joinToString("<br>") { group -> group.name?:"" } ?:""))
+        fields.add(UIDisplay.field("Organisation", user.organization?.name?:""))
+        return UIDisplay.table(fields)
+    }
+
 
     fun getUIDetailTable(user: User) : UIDisplay.Table {
         val fields = arrayListOf<UIDisplay.Field>()
