@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.ModelAttribute
+import org.springframework.web.bind.annotation.PostMapping
 
 @Controller
 class MainController  {
@@ -27,5 +29,15 @@ class MainController  {
         model["nbDevelopers"] = developerRepository.count()
         model["nbStoriesToAffect"] = storyRepository.findStoriesToAssign()?.size ?: 0
         return "index"
+    }
+
+    @PostMapping("/developer/add")
+    fun addDeveloper(
+        @ModelAttribute("firstname") firstname: String,
+        @ModelAttribute("lastname") lastname: String
+    ) : String {
+        val developer = Developer(firstname, lastname)
+        developerRepository.save(developer)
+        return "redirect:/"
     }
 }
