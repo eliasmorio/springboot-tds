@@ -63,4 +63,11 @@ class MainController  {
         storyRepository.save(story)
         return "redirect:/"
     }
+
+    @GetMapping("/developer/{id}/delete")
+    fun deleteDeveloper(@PathVariable id: Int) : String {
+        developerRepository.deleteById(id)
+        return "redirect:/"
+    }
+
 }
