@@ -1,6 +1,6 @@
-<h2 class="ui header">Développeurs</h2>
-<div class="ui blue pointing label">{{nbDevelopers}}</div>
-
+<h2 class="ui header">Développeurs
+<div class="ui blue left pointing label count-developers" >{{nbDevelopers}}</div>
+</h2>
 <div>
     <form action="/developer/add" method="post"  >
         <input class="ui input" type="text" name="firstname" placeholder="firstname">
@@ -28,9 +28,9 @@
             <td>{{firstname}} {{lastname}}</td>
             <td>
                 {{#stories}}
-                    <div class="ui label">{{name}}
-                        <a href="/story/{{id}}/giveup" class="detail">
-                            <i class="delete icon"></i>
+                    <div class="ui label td dev-story">{{name}}
+                        <a href="/story/{{id}}/giveup" class="detail giveup-story">
+                            <i class="remove icon"></i>
                         </a>
                     </div>
                 {{/stories}}
@@ -41,7 +41,7 @@
                 </form>
             </td>
             <td>
-                <a href="/developer/{{id}}/delete" class="ui button">Quitter le projet</a>
+                <a href="/developer/{{id}}/delete" class="ui button delete-developer button">Quitter le projet</a>
             </td>
         </tr>
     {{/developers}}

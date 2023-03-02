@@ -1,5 +1,6 @@
-<h2 class="ui header">User stories à répartir</h2>
-<div class="ui blue pointing label">{{nbStoriesToAffect}}</div>
+<h2 class="ui header">User stories à répartir
+    <div class="ui blue left pointing label count-stories">{{nbStoriesToAffect}}</div>
+</h2>
 
 <table class="ui table">
     <thead>
@@ -20,8 +21,8 @@
                             <option value="{{id}}">{{firstname}} {{lastname}}</option>
                         {{/developers}}
                     </select>
-                    <button class="ui button" name="story-action" value="affect"><i class="plus icon"></i></button>
-                    <button class="ui button" name="story-action" value="remove"><i class="times icon"></i></button>
+                    <button class="ui icon button" name="story-action" value="affect"><i class="plus icon"></i></button>
+                    <button class="ui red icon button" name="story-action" value="remove"><i class="times icon"></i></button>
                 </form>
             </td>
         </tr>
