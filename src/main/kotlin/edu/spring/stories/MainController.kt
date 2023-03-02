@@ -52,4 +52,15 @@ class MainController  {
         developerRepository.save(developer)
         return "redirect:/"
     }
+
+    @GetMapping("/story/{id}/giveup")
+    fun giveUpStory(
+        @PathVariable("id") storyId: Int
+    ) : String {
+        val story = storyRepository.findById(storyId).get()
+        val dev = story.developer
+        dev?.giveUpStory(story)
+        storyRepository.save(story)
+        return "redirect:/"
+    }
 }

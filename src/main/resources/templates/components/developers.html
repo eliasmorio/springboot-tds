@@ -28,7 +28,11 @@
             <td>{{firstname}} {{lastname}}</td>
             <td>
                 {{#stories}}
-                    <div class="ui label">{{name}}</div>
+                    <div class="ui label">{{name}}
+                        <a href="/story/{{id}}/giveu" class="detail">
+                            <i class="delete icon"></i>
+                        </a>
+                    </div>
                 {{/stories}}
             <td>
                 <form action="/developer/{{id}}/story" method="post">
