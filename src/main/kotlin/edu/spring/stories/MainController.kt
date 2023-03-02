@@ -24,8 +24,6 @@ class MainController  {
 
     @GetMapping("", "/")
     fun index(model : ModelMap): String {
-        val developer = Developer("John", "Doe")
-        developerRepository.save(developer)
         model["developers"] = developerRepository.findAll()
         model["storiesToAffect"] = storyRepository.findStoriesToAssign()
         model["nbDevelopers"] = developerRepository.count()
