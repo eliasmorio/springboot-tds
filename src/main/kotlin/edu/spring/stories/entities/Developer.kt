@@ -9,7 +9,7 @@ import jakarta.persistence.PreRemove
 class Developer {
 
     @Id
-    var id: Long? = null
+    var id: Int? = null
     var firstname: String? = null
     var lastname: String? = null
 

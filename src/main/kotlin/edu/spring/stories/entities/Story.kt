@@ -9,7 +9,7 @@ import jakarta.persistence.OneToMany
 class Story {
 
     @Id
-    var id: Long? = null
+    var id: Int? = null
     var name: String? = null
     @ManyToOne
     var developer: Developer? = null

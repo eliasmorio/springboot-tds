@@ -7,6 +7,6 @@ import jakarta.persistence.Id
 class Tag {
 
     @Id
-    var id: Long? = null
+    var id: Int? = null
     var name: String? = null
 }
