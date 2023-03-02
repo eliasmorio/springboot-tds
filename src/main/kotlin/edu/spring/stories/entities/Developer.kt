@@ -16,7 +16,7 @@ class Developer() {
     var firstname: String? = null
     var lastname: String? = null
 
-    @OneToMany(mappedBy = "developer")
+    @OneToMany(mappedBy = "developer", cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     var stories: MutableSet<Story> = mutableSetOf()
 
     fun addStory(story: Story){
