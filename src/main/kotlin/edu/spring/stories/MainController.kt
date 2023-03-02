@@ -70,4 +70,28 @@ class MainController  {
         return "redirect:/"
     }
 
+    @PostMapping("/story/{id}/action")
+    fun storyAction(
+        @ModelAttribute("story-action") action: String,
+        @ModelAttribute("developer-id") developerId: Int,
+        @PathVariable("id") storyId: Int
+    ) : String
+    {
+        val story = storyRepository.findById(storyId).get()
+        when (action) {
+            "affect" -> {
+                val developer = developerRepository.findById(developerId).get()
+                developer.addStory(story)
+                developerRepository.save(developer)
+            }
+            "remove" -> {
+                storyRepository.delete(story)
+            }
+            else -> {
+                throw Exception("Action Inconnue : $action")
+            }
+        }
+        return "redirect:/"
+    }
+
 }

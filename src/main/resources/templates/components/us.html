@@ -15,17 +15,13 @@
             <td>{{name}}</td>
             <td>
                 <form action="/story/{{id}}/action" method="post">
-
-                    <input type="hidden" name="story-action" value="affect">
-                    <button class="ui button">
-                        <i class="plus icon"></i>
-                    </button>
-                </form>
-                <form action="/story/{{id}}/action" method="post">
-                    <input type="hidden" name="story-action" value="remove">
-                    <button class="ui button">
-                        <i class="times icon"></i>
-                    </button>
+                    <select class="ui select" name="developer-id">
+                        {{#developers}}
+                            <option value="{{id}}">{{firstname}} {{lastname}}</option>
+                        {{/developers}}
+                    </select>
+                    <button class="ui button" name="story-action" value="affect"><i class="plus icon"></i></button>
+                    <button class="ui button" name="story-action" value="remove"><i class="times icon"></i></button>
                 </form>
             </td>
         </tr>
