@@ -5,7 +5,12 @@ import jakarta.persistence.Id
 import jakarta.persistence.ManyToMany
 
 @Entity
-class Tag {
+class Tag(){
+
+    constructor(label: String, color: String) : this() {
+        this.label = label
+        this.color = color
+    }
 
     @Id
     var id: Int? = null

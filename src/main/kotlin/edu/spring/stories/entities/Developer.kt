@@ -6,7 +6,12 @@ import jakarta.persistence.OneToMany
 import jakarta.persistence.PreRemove
 
 @Entity
-class Developer {
+class Developer() {
+
+    constructor(firstname: String, lastname: String) : this() {
+        this.firstname = firstname
+        this.lastname = lastname
+    }
 
     @Id
     var id: Int? = null

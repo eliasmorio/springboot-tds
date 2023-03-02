@@ -3,7 +3,11 @@ package edu.spring.stories.entities
 import jakarta.persistence.*
 
 @Entity
-class Story {
+class Story() {
+
+    constructor(name: String) : this() {
+        this.name = name
+    }
 
     @Id
     var id: Int? = null
