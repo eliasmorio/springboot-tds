@@ -12,7 +12,7 @@ class Developer() {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Int? = null
+    var id: Int = 0
     var firstname: String? = null
     var lastname: String? = null
 
