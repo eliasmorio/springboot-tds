@@ -1,0 +1,12 @@
+package edu.spring.stories.entities
+
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
+
+@Entity
+class Tag {
+
+    @Id
+    var id: Long? = null
+    var name: String? = null
+}
