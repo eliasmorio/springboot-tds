@@ -1,9 +1,6 @@
 package edu.spring.stories.entities
 
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
-import jakarta.persistence.ManyToOne
-import jakarta.persistence.OneToMany
+import jakarta.persistence.*
 
 @Entity
 class Story {
@@ -13,7 +10,7 @@ class Story {
     var name: String? = null
     @ManyToOne
     var developer: Developer? = null
-    @OneToMany
+    @ManyToMany
     var tags: MutableSet<Tag> = mutableSetOf()
 
 }
