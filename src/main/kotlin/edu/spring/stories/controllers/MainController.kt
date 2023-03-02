@@ -1,10 +1,9 @@
-package edu.spring.stories
+package edu.spring.stories.controllers
 
 import edu.spring.stories.entities.Developer
 import edu.spring.stories.entities.Story
 import edu.spring.stories.repositories.DeveloperRepository
 import edu.spring.stories.repositories.StoryRepository
-import edu.spring.stories.repositories.TagRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
@@ -16,8 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping
 @Controller
 class MainController  {
     @Autowired
-    lateinit var tagRepository: TagRepository
-    @Autowired
     lateinit var storyRepository: StoryRepository
     @Autowired
     lateinit var developerRepository: DeveloperRepository
@@ -25,9 +22,9 @@ class MainController  {
     @GetMapping("", "/")
     fun index(model : ModelMap): String {
         model["developers"] = developerRepository.findAll()
-        model["storiesToAffect"] = storyRepository.findStoriesToAssign()
+        model["storiesToAffect"] = storyRepository.findByDeveloperIsNull()
         model["nbDevelopers"] = developerRepository.count()
-        model["nbStoriesToAffect"] = storyRepository.findStoriesToAssign()?.size ?: 0
+        model["nbStoriesToAffect"] = storyRepository.findByDeveloperIsNull().size
         return "index"
     }
 
