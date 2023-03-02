@@ -1,0 +1,35 @@
+<h2 class="ui header">User stories à répartir</h2>
+<div class="ui blue pointing label">{{nbStoriesToAffect}}</div>
+
+<table class="ui table">
+    <thead>
+        <tr>
+            <th>US</th>
+            <th>Actions</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#storiesToAffect}}
+        <tr>
+            <td>{{name}}</td>
+            <td>
+                <form action="/story/{{id}}/action" method="post">
+
+                    <input type="hidden" name="story-action" value="affect">
+                    <button class="ui button">
+                        <i class="plus icon"></i>
+                    </button>
+                </form>
+                <form action="/story/{{id}}/action" method="post">
+                    <input type="hidden" name="story-action" value="remove">
+                    <button class="ui button">
+                        <i class="times icon"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+    {{/storiesToAffect}}
+    </tbody>
+</table>
+
