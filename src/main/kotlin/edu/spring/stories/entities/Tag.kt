@@ -1,8 +1,6 @@
 package edu.spring.stories.entities
 
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
-import jakarta.persistence.ManyToMany
+import jakarta.persistence.*
 
 @Entity
 class Tag(){
@@ -13,6 +11,7 @@ class Tag(){
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Int? = null
     var label: String? = null
     var color: String? = null

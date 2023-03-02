@@ -1,9 +1,6 @@
 package edu.spring.stories.entities
 
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
-import jakarta.persistence.OneToMany
-import jakarta.persistence.PreRemove
+import jakarta.persistence.*
 
 @Entity
 class Developer() {
@@ -14,6 +11,7 @@ class Developer() {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Int? = null
     var firstname: String? = null
     var lastname: String? = null

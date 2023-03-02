@@ -10,6 +10,7 @@ class Story() {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Int? = null
     var name: String? = null
     @ManyToOne

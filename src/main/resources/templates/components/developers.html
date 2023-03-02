@@ -1,0 +1,45 @@
+<h2 class="ui header">Développeurs</h2>
+<div class="ui blue pointing label">{{nbDevelopers}}</div>
+
+<div>
+    <form action="/developer/add" method="post"  >
+        <input class="ui input" type="text" name="firstname" placeholder="firstname">
+        <input class="ui input" type="text" name="lastname" placeholder="lastname">
+        <button class="ui icon button">
+            <i class="plus icon"></i>
+        </button>
+    </form>
+</div>
+
+
+
+<table class="ui table">
+    <thead>
+        <tr>
+            <th>Développeur</th>
+            <th>Stories</th>
+            <th>Actions</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#developers}}
+        <tr>
+            <td>{{firstname}} {{lastname}}</td>
+            <td>
+                {{#stories}}
+                    <div class="ui label">{{name}}</div>
+                {{/stories}}
+            <td>
+                <form action="/developer/{{id}}/story" method="post">
+                    <input class="ui input" type="text" name="story" placeholder="story name">
+                    <button class="ui button" name="story-action" value="add">Ajouter US & Affecter</button>
+                </form>
+            </td>
+            <td>
+                <a href="/developer/{{id}}/delete" class="ui button">Supprimer</a>
+            </td>
+        </tr>
+    {{/developers}}
+    </tbody>
+</table>
