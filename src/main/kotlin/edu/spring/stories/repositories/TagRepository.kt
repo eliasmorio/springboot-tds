@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository
 @Repository
 interface TagRepository : CrudRepository<Tag, Int> {
 
-    fun findByColor(color: String): List<Tag>?
+    fun findByColor(color: String): List<Tag>
 
 
 }
