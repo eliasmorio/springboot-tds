@@ -1,5 +1,5 @@
 <h2 class="ui header">User stories à répartir
-    <div class="ui blue left pointing label count-stories">{{nbStoriesToAffect}}</div>
+    <div class="ui red left pointing label count-stories">{{nbStoriesToAffect}}</div>
 </h2>
 
 <table class="ui table">
@@ -7,7 +7,6 @@
         <tr>
             <th>US</th>
             <th>Actions</th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -16,12 +15,14 @@
             <td>{{name}}</td>
             <td>
                 <form action="/story/{{id}}/action" method="post">
-                    <select class="ui select" name="developer-id">
-                        {{#developers}}
+                    <div class="ui action left input">
+                        <select class="ui selection dropdown" name="developer-id">
+                            {{#developers}}
                             <option value="{{id}}">{{firstname}} {{lastname}}</option>
-                        {{/developers}}
-                    </select>
-                    <button class="ui icon button" name="story-action" value="affect"><i class="plus icon"></i></button>
+                            {{/developers}}
+                        </select>
+                        <button class="ui icon button" name="story-action" value="affect"><i class="plus icon"></i></button>
+                    </div>
                     <button class="ui red icon button" name="story-action" value="remove"><i class="times icon"></i></button>
                 </form>
             </td>

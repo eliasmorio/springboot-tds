@@ -1,13 +1,22 @@
 <h2 class="ui header">Développeurs
-<div class="ui blue left pointing label count-developers" >{{nbDevelopers}}</div>
+<div class="ui olive left pointing label count-developers" >{{nbDevelopers}}</div>
 </h2>
-<div>
-    <form action="/developer/add" method="post"  >
-        <input class="ui input" type="text" name="firstname" placeholder="firstname">
-        <input class="ui input" type="text" name="lastname" placeholder="lastname">
-        <button class="ui icon button">
-            <i class="plus icon"></i>
-        </button>
+
+
+<div class="ui top attached segment info message olive">
+        <i class="info icon"></i>
+        Ajout rapide de dévelopeur
+    </div>
+<div class="ui attached segment">
+
+    <form action="/developer/add" method="post">
+        <div class="ui action left input">
+            <input type="text" name="firstname" placeholder="firstname">
+            <input type="text" name="lastname" placeholder="lastname">
+            <button class="ui icon button">
+                <i class="plus icon"></i>
+            </button>
+        </div>
     </form>
 </div>
 
@@ -36,12 +45,17 @@
                 {{/stories}}
             <td>
                 <form action="/developer/{{id}}/story" method="post">
-                    <input class="ui input" type="text" name="storyName" placeholder="story name">
-                    <button class="ui button" name="story-action" value="add">Ajouter US & Affecter</button>
+                    <div class="ui action left input">
+                        <input class="ui input" type="text" name="storyName" placeholder="story name">
+                        <button class="ui button positive" name="story-action" value="add">Ajouter US & Affecter</button>
+                    </div>
                 </form>
             </td>
             <td>
-                <a href="/developer/{{id}}/delete" class="ui button delete-developer button">Quitter le projet</a>
+                <a href="/developer/{{id}}/delete" class="ui button delete-developer button black">
+                    <i class="sign out icon"></i>
+                    Quitter le projet
+                </a>
             </td>
         </tr>
     {{/developers}}
