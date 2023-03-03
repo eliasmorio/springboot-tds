@@ -17,17 +17,29 @@
                 <form action="/story/{{id}}/action" method="post">
                     <div class="ui action left input">
                         <select class="ui selection dropdown" name="developer-id">
+                            {{#noDeveloper}}
+                                <option value="">Pas de devs</option>
+                            {{/noDeveloper}}
                             {{#developers}}
-                            <option value="{{id}}">{{firstname}} {{lastname}}</option>
+                                <option value="{{id}}">{{firstname}} {{lastname}}</option>
                             {{/developers}}
                         </select>
-                        <button class="ui icon button" name="story-action" value="affect"><i class="plus icon"></i></button>
+                        <button class="ui icon button" name="story-action" value="affect" type="submit"><i class="plus icon"></i></button>
                     </div>
-                    <button class="ui red icon button" name="story-action" value="remove"><i class="times icon"></i></button>
+                    <button class="ui red icon button giveup-story" name="story-action" value="remove" type="submit"><i class="times icon"></i></button>
                 </form>
             </td>
         </tr>
     {{/storiesToAffect}}
     </tbody>
 </table>
+
+{{#noStoryToAffect}}
+<div class="ui segment message warning">
+    <i class="warning icon"></i>
+    Il n'y a pas d'US à attribuer dans la base de données.
+</div>
+
+{{/noStoryToAffect}}
+
 

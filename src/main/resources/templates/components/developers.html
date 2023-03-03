@@ -5,7 +5,7 @@
 
 <div class="ui top attached segment info message olive">
         <i class="info icon"></i>
-        Ajout rapide de dévelopeur
+        Ajout rapide de développeur
     </div>
 <div class="ui attached segment">
 
@@ -46,7 +46,7 @@
             <td>
                 <form action="/developer/{{id}}/story" method="post">
                     <div class="ui action left input">
-                        <input class="ui input" type="text" name="storyName" placeholder="story name">
+                        <input class="ui input" type="text" name="name" placeholder="story name">
                         <button class="ui button positive" name="story-action" value="add">Ajouter US & Affecter</button>
                     </div>
                 </form>
@@ -59,5 +59,12 @@
             </td>
         </tr>
     {{/developers}}
+
     </tbody>
 </table>
+{{#noDeveloper}}
+<div class="ui segment message warning">
+    <i class="warning icon"></i>
+    Il n'y a pas de développeurs dans la base de données.
+</div>
+{{/noDeveloper}}

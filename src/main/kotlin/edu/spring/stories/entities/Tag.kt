@@ -5,7 +5,7 @@ import jakarta.persistence.*
 @Entity
 class Tag(){
 
-    constructor(label: String, color: String) : this() {
+    constructor(color: String, label: String) : this() {
         this.label = label
         this.color = color
     }

@@ -21,10 +21,23 @@ class MainController  {
 
     @GetMapping("", "/")
     fun index(model : ModelMap): String {
-        model["developers"] = developerRepository.findAll()
-        model["storiesToAffect"] = storyRepository.findByDeveloperIsNull()
-        model["nbDevelopers"] = developerRepository.count()
-        model["nbStoriesToAffect"] = storyRepository.findByDeveloperIsNull().size
+        val nbDeveloper = developerRepository.count()
+        model["nbDevelopers"] = nbDeveloper
+        if (nbDeveloper > 0){
+            model["developers"] = developerRepository.findAll()
+        }
+        else{
+            model["noDeveloper"] = true
+        }
+        val nbStoriesToAffect = storyRepository.findByDeveloperIsNull().size
+        model["nbStoriesToAffect"] = nbStoriesToAffect
+        if (nbStoriesToAffect > 0){
+            model["storiesToAffect"] = storyRepository.findByDeveloperIsNull()
+        }
+        else{
+            model["noStoryToAffect"] = true
+        }
+
         return "index"
     }
 
@@ -41,7 +54,7 @@ class MainController  {
     @PostMapping("/developer/{id}/story")
     fun addStoryToDeveloper(
         @PathVariable("id") developerId: Int,
-        @ModelAttribute("storyName") storyName: String,
+        @ModelAttribute("name") storyName: String,
     ) : String {
         val story = Story(storyName)
         val developer = developerRepository.findById(developerId).get()
@@ -70,14 +83,14 @@ class MainController  {
     @PostMapping("/story/{id}/action")
     fun storyAction(
         @ModelAttribute("story-action") action: String,
-        @ModelAttribute("developer-id") developerId: Int,
+        @ModelAttribute("developer-id") developerId: String,
         @PathVariable("id") storyId: Int
     ) : String
     {
         val story = storyRepository.findById(storyId).get()
         when (action) {
             "affect" -> {
-                val developer = developerRepository.findById(developerId).get()
+                val developer = developerRepository.findById(developerId.toInt()).get()
                 developer.addStory(story)
                 developerRepository.save(developer)
             }

@@ -34,7 +34,7 @@ class ApplicationTest {
     private val COUNT_STORIES=".count-stories"
     private val COUNT_DEVELOPER_STORIES="td .dev-story"
     private val DELETE_DEVELOPER=".delete-developer.button"
-    private val DELETE_STORY="button[value='remove'][name='story-action']:first-child"
+    private val DELETE_STORY="button[value='remove'][name='story-action']"
     private val ADD_DEVELOPER="form[action='/developer/add'] button"
     private val ADD_STORY="button[value='add']"
     private val GIVEUP_STORY=".giveup-story:first-child"
