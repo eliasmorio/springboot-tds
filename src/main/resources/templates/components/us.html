@@ -16,7 +16,7 @@
             <td>
                 <form action="/story/{{id}}/action" method="post">
                     <div class="ui action left input">
-                        <select class="ui selection dropdown" name="developer-id">
+                        <select class="ui selection dropdown" name="developer-id" {{#noDeveloper}} disabled {{/noDeveloper}}>
                             {{#noDeveloper}}
                                 <option value="">Pas de devs</option>
                             {{/noDeveloper}}
