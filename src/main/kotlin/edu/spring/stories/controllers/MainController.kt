@@ -21,22 +21,16 @@ class MainController  {
 
     @GetMapping("", "/")
     fun index(model : ModelMap): String {
-        val nbDeveloper = developerRepository.count()
-        model["nbDevelopers"] = nbDeveloper
-        if (nbDeveloper > 0){
-            model["developers"] = developerRepository.findAll()
-        }
-        else{
-            model["noDeveloper"] = true
-        }
-        val nbStoriesToAffect = storyRepository.findByDeveloperIsNull().size
-        model["nbStoriesToAffect"] = nbStoriesToAffect
-        if (nbStoriesToAffect > 0){
-            model["storiesToAffect"] = storyRepository.findByDeveloperIsNull()
-        }
-        else{
-            model["noStoryToAffect"] = true
-        }
+        val developers = developerRepository.findAll()
+        model["nbDevelopers"] = developers.count()
+        model["developers"] = developers
+        model["noDeveloper"] = developers.count() == 0;
+
+        val storiesToAffect = storyRepository.findByDeveloperIsNull()
+        model["nbStoriesToAffect"] = storiesToAffect.count()
+        model["storiesToAffect"] = storiesToAffect
+        model["noStoryToAffect"] = storiesToAffect.count() == 0;
+
 
         return "index"
     }
