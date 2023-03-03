@@ -11,7 +11,7 @@ class Story() {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Int? = null
+    var id: Int = 0
     var name: String? = null
     @ManyToOne
     var developer: Developer? = null
