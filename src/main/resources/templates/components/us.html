@@ -24,7 +24,7 @@
                                 <option value="{{id}}">{{firstname}} {{lastname}}</option>
                             {{/developers}}
                         </select>
-                        <button class="ui icon button" name="story-action" value="affect" type="submit"><i class="plus icon"></i></button>
+                        <button class="ui icon button" name="story-action" value="affect" type="submit" {{#noDeveloper}} disabled {{/noDeveloper}}><i class="plus icon"></i></button>
                     </div>
                     <button class="ui red icon button giveup-story" name="story-action" value="remove" type="submit"><i class="times icon"></i></button>
                 </form>
