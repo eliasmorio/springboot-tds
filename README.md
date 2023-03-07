@@ -1,3 +1,5 @@
+![Unit Test](https://github.com/EliasMorio/springboot-tds/actions/workflows/maven.yml/badge.svg?branch=td3)
+
 # stories-td1
 Devs &amp; stories for TD1
 
