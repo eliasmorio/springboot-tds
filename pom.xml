@@ -12,8 +12,8 @@
     <artifactId>dogs</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>dogs</name>
-    <description>dogs</description>
+    <name>td4</name>
+    <description>rest-vue-app</description>
     <properties>
         <java.version>17</java.version>
         <kotlin.version>1.7.22</kotlin.version>
