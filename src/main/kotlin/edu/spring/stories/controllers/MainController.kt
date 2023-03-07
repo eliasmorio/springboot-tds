@@ -24,14 +24,9 @@ class MainController  {
         val developers = developerRepository.findAll()
         model["nbDevelopers"] = developers.count()
         model["developers"] = developers
-        model["noDeveloper"] = developers.count() == 0;
-
         val storiesToAffect = storyRepository.findByDeveloperIsNull()
         model["nbStoriesToAffect"] = storiesToAffect.count()
         model["storiesToAffect"] = storiesToAffect
-        model["noStoryToAffect"] = storiesToAffect.count() == 0;
-
-
         return "index"
     }
 

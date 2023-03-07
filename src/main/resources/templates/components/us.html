@@ -16,12 +16,12 @@
             <td>
                 <form action="/story/{{id}}/action" method="post">
                     <div class="ui action left input">
-                        <select class="ui selection dropdown" name="developer-id" {{#noDeveloper}} disabled {{/noDeveloper}}>
-                            {{#noDeveloper}}
-                                <option value="">Pas de devs</option>
-                            {{/noDeveloper}}
+                        <select class="ui selection dropdown" name="developer-id" {{^developers}} disabled {{/developers}}>
                             {{#developers}}
                                 <option value="{{id}}">{{firstname}} {{lastname}}</option>
+                            {{/developers}}
+                            {{^developers}}
+                                <option value="">Pas de devs</option>
                             {{/developers}}
                         </select>
                         <button class="ui icon button" name="story-action" value="affect" type="submit" {{#noDeveloper}} disabled {{/noDeveloper}}><i class="plus icon"></i></button>
@@ -34,12 +34,12 @@
     </tbody>
 </table>
 
-{{#noStoryToAffect}}
+{{^storiesToAffect}}
 <div class="ui segment message warning">
     <i class="warning icon"></i>
     Il n'y a pas d'US à attribuer dans la base de données.
 </div>
 
-{{/noStoryToAffect}}
+{{/storiesToAffect}}
 
 
