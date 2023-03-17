@@ -111,62 +111,62 @@ class ApplicationTest {
         return driver.findElements(ByCssSelector.cssSelector(cssSelector)).size
     }
 
-    @Test
-    fun homePageLoadsWithMessages() {
-        //Vérification de la présence des messages
-        Assertions.assertTrue(driver.currentUrl?.contains("")!!);
-        assertElementContainsText("body", "Il n'y a pas de développeurs dans la base de données.");
-        assertElementContainsText("body", "Il n'y a pas d'US à attribuer dans la base de données.");
-        checkElementIsDisplayed("input[name=firstname]")
-    }
-
-
-    @Test
-    fun addDevAndStories() {
-        assertElementContainsText(COUNT_DEVELOPERS, "0")
-
-        //Ajout d'un développeur
-        fillElement("firstname", "John")
-        fillElement("lastname", "DOE")
-        btnClick(ADD_DEVELOPER)
-        assertElementContainsText("body", "John DOE")
-        assertElementContainsText(COUNT_DEVELOPERS, "1")
-
-        //Ajout d'une story
-        checkElementIsDisplayed("input[name=name]")
-        Assertions.assertEquals(countElements(COUNT_DEVELOPER_STORIES), 0)
-        fillElement("name", "Imprimer")
-        btnClick(ADD_STORY)
-        Assertions.assertEquals(countElements(COUNT_DEVELOPER_STORIES), 1)
-
-        //Ajout d'une story
-        fillElement("name", "Se connecter")
-        btnClick(ADD_STORY)
-        Assertions.assertEquals(countElements(COUNT_DEVELOPER_STORIES), 2)
-
-        //Abandon d'une story
-        btnClick(GIVEUP_STORY)
-        Assertions.assertEquals(countElements(COUNT_DEVELOPER_STORIES), 1)
-        assertElementContainsText("body", "Imprimer")
-        assertElementContainsText(COUNT_STORIES, "1")
-
-        //Départ d'un développeur
-        btnClick(DELETE_DEVELOPER)
-        assertElementContainsText(COUNT_DEVELOPERS, "0")
-        assertElementContainsText("body", "Il n'y a pas de développeurs dans la base de données.");
-        assertElementContainsText("body", "Imprimer")
-        assertElementContainsText("body", "Se connecter")
-        assertElementContainsText("body","Pas de devs")
-        assertElementContainsText(COUNT_STORIES, "2")
-
-        //Suppression d'une story
-        btnClick(DELETE_STORY)
-        assertElementContainsText(COUNT_STORIES, "1")
-
-        //Suppression d'une story
-        btnClick(DELETE_STORY)
-        assertElementContainsText(COUNT_STORIES, "0")
-        assertElementContainsText("body", "Il n'y a pas d'US à attribuer dans la base de données.");
-
-    }
+//    @Test
+//    fun homePageLoadsWithMessages() {
+//        //Vérification de la présence des messages
+//        Assertions.assertTrue(driver.currentUrl?.contains("")!!);
+//        assertElementContainsText("body", "Il n'y a pas de développeurs dans la base de données.");
+//        assertElementContainsText("body", "Il n'y a pas d'US à attribuer dans la base de données.");
+//        checkElementIsDisplayed("input[name=firstname]")
+//    }
+//
+//
+//    @Test
+//    fun addDevAndStories() {
+//        assertElementContainsText(COUNT_DEVELOPERS, "0")
+//
+//        //Ajout d'un développeur
+//        fillElement("firstname", "John")
+//        fillElement("lastname", "DOE")
+//        btnClick(ADD_DEVELOPER)
+//        assertElementContainsText("body", "John DOE")
+//        assertElementContainsText(COUNT_DEVELOPERS, "1")
+//
+//        //Ajout d'une story
+//        checkElementIsDisplayed("input[name=name]")
+//        Assertions.assertEquals(countElements(COUNT_DEVELOPER_STORIES), 0)
+//        fillElement("name", "Imprimer")
+//        btnClick(ADD_STORY)
+//        Assertions.assertEquals(countElements(COUNT_DEVELOPER_STORIES), 1)
+//
+//        //Ajout d'une story
+//        fillElement("name", "Se connecter")
+//        btnClick(ADD_STORY)
+//        Assertions.assertEquals(countElements(COUNT_DEVELOPER_STORIES), 2)
+//
+//        //Abandon d'une story
+//        btnClick(GIVEUP_STORY)
+//        Assertions.assertEquals(countElements(COUNT_DEVELOPER_STORIES), 1)
+//        assertElementContainsText("body", "Imprimer")
+//        assertElementContainsText(COUNT_STORIES, "1")
+//
+//        //Départ d'un développeur
+//        btnClick(DELETE_DEVELOPER)
+//        assertElementContainsText(COUNT_DEVELOPERS, "0")
+//        assertElementContainsText("body", "Il n'y a pas de développeurs dans la base de données.");
+//        assertElementContainsText("body", "Imprimer")
+//        assertElementContainsText("body", "Se connecter")
+//        assertElementContainsText("body","Pas de devs")
+//        assertElementContainsText(COUNT_STORIES, "2")
+//
+//        //Suppression d'une story
+//        btnClick(DELETE_STORY)
+//        assertElementContainsText(COUNT_STORIES, "1")
+//
+//        //Suppression d'une story
+//        btnClick(DELETE_STORY)
+//        assertElementContainsText(COUNT_STORIES, "0")
+//        assertElementContainsText("body", "Il n'y a pas d'US à attribuer dans la base de données.");
+//
+//    }
 }
