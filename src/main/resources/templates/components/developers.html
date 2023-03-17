@@ -1,5 +1,5 @@
 <h2 class="ui header">Développeurs
-<div class="ui olive left pointing label count-developers" >{{nbDevelopers}}</div>
+<div class="ui olive left pointing label count-developers" >{!developers.length!}</div>
 </h2>
 
 
@@ -9,15 +9,13 @@
     </div>
 <div class="ui attached segment">
 
-    <form action="/developer/add" method="post">
+    <div>
         <div class="ui action left input">
-            <input type="text" name="firstname" placeholder="firstname">
-            <input type="text" name="lastname" placeholder="lastname">
-            <button class="ui icon button">
-                <i class="plus icon"></i>
-            </button>
+            <input type="text" placeholder="firstname" v-model="developer.firstname">
+            <input type="text" placeholder="lastname" v-model="developer.lastname">
+            <button class="ui icon button" @click="add(developer)"><i class="plus icon"></i></button>
         </div>
-    </form>
+    </div>
 </div>
 
 
@@ -32,39 +30,29 @@
         </tr>
     </thead>
     <tbody>
-    {{#developers}}
-        <tr>
-            <td>{{firstname}} {{lastname}}</td>
+        <tr v-for="developer in developers">
+            <td>{!developer.firstname!} {!developer.lastname!}</td>
             <td>
-                {{#stories}}
-                    <div class="ui label td dev-story">{{name}}
-                        <a href="/story/{{id}}/giveup" class="detail giveup-story">
-                            <i class="remove icon"></i>
-                        </a>
-                    </div>
-                {{/stories}}
+                <div v-for="story in developer.stories" class="ui label td dev-story">
+                    {!story.name!}
+                    <i class="remove icon"></i>
+                </div>
             <td>
-                <form action="/developer/{{id}}/story" method="post">
-                    <div class="ui action left input">
-                        <input class="ui input" type="text" name="name" placeholder="story name">
-                        <button class="ui button positive" name="story-action" value="add">Ajouter US & Affecter</button>
-                    </div>
-                </form>
+                <div class="ui action left input" >
+                    <input class="ui input" type="text" placeholder="story name">
+                    <button class="ui button positive" value="add">Ajouter US & Affecter</button>
+                </div>
             </td>
             <td>
-                <a href="/developer/{{id}}/delete" class="ui button delete-developer button black">
+                <a class="ui button delete-developer button black" @click="remove(developer)">
                     <i class="sign out icon"></i>
                     Quitter le projet
                 </a>
             </td>
         </tr>
-    {{/developers}}
-
     </tbody>
 </table>
-{{^developers}}
 <div class="ui segment message warning">
     <i class="warning icon"></i>
     Il n'y a pas de développeurs dans la base de données.
 </div>
-{{/developers}}

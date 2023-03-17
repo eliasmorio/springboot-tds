@@ -1,0 +1,9 @@
+<div v-show="visible" :class="[error ? 'ui icon error message' : 'ui icon success message']">
+    <i :class="[error ? 'exclamation circle icon' : 'check circle icon']"></i>
+    <div class="content">
+        <div class="header">
+            {{title}}
+        </div>
+        <p>{{content}}</p>
+    </div>
+</div>
