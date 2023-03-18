@@ -31,7 +31,7 @@ class SPAController {
         vue.addMethod("addMaster",
             Http.post("/masters",
                 "master",
-                JsArray.add("this.masters","master")+
+                        JsArray.add("this.masters","master")+
                         "this.newMaster={}",
                 "console.log('Erreur')"),
             "master")

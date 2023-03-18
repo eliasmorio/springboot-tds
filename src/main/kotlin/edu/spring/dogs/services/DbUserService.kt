@@ -1,5 +1,6 @@
 package edu.spring.dogs.services
 
+import edu.spring.dogs.entities.Role
 import edu.spring.dogs.entities.User
 import edu.spring.dogs.repositories.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -26,7 +27,8 @@ class DbUserService: UserDetailsService {
 
     private fun getGrantedAuthorities(user: User): List<GrantedAuthority>? {
         val authorities: MutableList<GrantedAuthority> = ArrayList()
-        authorities.add(SimpleGrantedAuthority(user.role))
+        val role: Role = user.role
+        authorities.add(SimpleGrantedAuthority(role.name))
         return authorities
     }
 

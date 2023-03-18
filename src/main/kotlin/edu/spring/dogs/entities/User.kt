@@ -22,6 +22,6 @@ open class User() {
     @Column(unique = true, length = 115)
     open var email:String?=null
 
-    @Column(nullable = false)
-    open lateinit var role:String
+    @ManyToOne
+    open lateinit var role : Role
 }
