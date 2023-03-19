@@ -1,0 +1,59 @@
+{{ >main/header }}
+
+<div class="ui cards">
+{{ #users }}
+    <div class="ui card">
+        <div class="content">
+            <div class="header">{{username}}</div>
+            <div class="meta">
+                <span class="date">{{email}}</span>
+            </div>
+            <div class="description">
+                {{role.name}}
+            </div>
+        </div>
+        <div class="extra content">
+            <div class="ui two buttons">
+                <a class="ui basic green button">Edit</a>
+                <a class="ui basic red button">Delete</a>
+            </div>
+        </div>
+    </div>
+{{ /users }}
+</div>
+    <div class="ui card">
+        <div class="content">
+            <div class="header">Add user</div>
+            <div class="meta">
+                <span class="date">Add a new user</span>
+            </div>
+            <div class="description">
+                <form class="ui form" method="post" action="/admin/users">
+                    <div class="field">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" placeholder="Username">
+                    </div>
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" id="email" placeholder="Email">
+                    </div>
+                    <div class="field">
+                        <label for="password" >Password</label>
+                        <input type="password" name="password" id="password" placeholder="Password">
+                    </div>
+                    <div class="field">
+                        <label for="role">Role</label>
+                        <select class="ui fluid dropdown" id="role" name="role">
+                            {{#roles}}
+                            <option class="ui option" value="{{id}}">{{name}}</option>
+                            {{/roles}}
+                        </select>
+                    </div>
+                    <button class="ui button" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+{{ >main/footer }}
