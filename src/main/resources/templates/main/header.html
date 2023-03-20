@@ -10,7 +10,7 @@
 <div id="app" class="ui container">
     <div class="ui menu">
         <div class="header item">Master & dogs</div>
-            {{ #user }}
+            {{ #auth }}
             <div class="active item">
                 {{#isAuthenticated}}
                     <a class="ui labeled icon button" href="/logout">
@@ -29,6 +29,10 @@
 
 
             </div>
-            {{/user}}
+            {{/auth}}
         <div class="item right floated">Version : <span class="ui brown label">1.0.0</span></div>
     </div>
+
+    {{#message}}
+        {{> partials/message}}
+    {{/message}}

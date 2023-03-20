@@ -1,0 +1,16 @@
+<div class="ui icon {{type}} message">
+    <i class="{{icon}} icon"></i>
+    <div class="content">
+        <div class="header">
+            {{title}}
+        </div>
+        <p>{{{message}}}</p>
+    </div>
+    {{ #redirect }}
+        <hr>
+        <form method="post" action="{{redirect}}">
+            <button class="ui {{type}} button" type="submit">Confirmer</button>
+        </form>
+        <div class="ui button" onclick="window.location.href='{{defaultRedirect}}'">Annuler</div>
+    {{ /redirect }}
+</div>

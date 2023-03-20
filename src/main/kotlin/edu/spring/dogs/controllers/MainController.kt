@@ -4,6 +4,7 @@ import edu.spring.dogs.entities.Dog
 import edu.spring.dogs.entities.Master
 import edu.spring.dogs.repositories.DogRepository
 import edu.spring.dogs.repositories.MasterRepository
+import edu.spring.dogs.services.ui.UIMessage
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Controller
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestAttribute
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.servlet.mvc.support.RedirectAttributes
 
 @Controller
 class MainController {
@@ -24,7 +26,7 @@ class MainController {
     @Autowired
     lateinit var dogRepository: DogRepository
 
-    @ModelAttribute("user")
+    @ModelAttribute("auth")
     fun user(auth: Authentication) = auth
 
     @ModelAttribute("isAdmin")
@@ -77,6 +79,12 @@ class MainController {
                 masterRepository.save(master)
             }
         }
+        return "redirect:/"
+    }
+
+    @GetMapping("/403")
+    fun error403(attrs : RedirectAttributes): String {
+        UIMessage.addMsg(false, attrs, "Accès refusé", "", "Vous n'avez pas les permissions nécessaires pour accéder à cette page")
         return "redirect:/"
     }
 }

@@ -32,6 +32,8 @@ class WebSecurityConfig {
             .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
             .anyRequest().authenticated()     // Doit arriver après les requestMatchers
             .and()
+            .exceptionHandling().accessDeniedPage("/403")
+            .and()
             .formLogin().loginPage("/login").successForwardUrl("/")
             .and()
             .headers().frameOptions().sameOrigin()
