@@ -12,10 +12,22 @@
         <div class="header item">Master & dogs</div>
             {{ #user }}
             <div class="active item">
-                {{name}}
                 {{#isAuthenticated}}
-                    <a class="ui button" href="/logout">Déconnexion</a>
+                    <a class="ui labeled icon button" href="/logout">
+                        <i class="sign out alternate icon"></i>
+                        Bonjour {{name}}
+                    </a>
                 {{/isAuthenticated}}
+                {{#isAdmin}}
+                    {{#onAdminPage}}
+                        <a class="ui button" href="/">Retour</a>
+                    {{/onAdminPage}}
+                    {{^onAdminPage}}
+                        <a class="ui button" href="/admin">Administration</a>
+                    {{/onAdminPage}}
+                {{/isAdmin}}
+
+
             </div>
             {{/user}}
         <div class="item right floated">Version : <span class="ui brown label">1.0.0</span></div>

@@ -2,7 +2,7 @@
 
 <div class="ui cards">
 {{ #users }}
-    <div class="ui card">
+    <div class="ui card" data-text="{{id}}">
         <div class="content">
             <div class="header">{{username}}</div>
             <div class="meta">
@@ -104,6 +104,12 @@
         Or
     </div>
 </div>
+
+<script>
+    $('.ui.card').click(function () {
+        $(this).toggleClass('selected');
+    });
+</script>
 
 
 

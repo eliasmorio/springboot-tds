@@ -24,13 +24,17 @@ class MainController {
     @Autowired
     lateinit var dogRepository: DogRepository
 
+    @ModelAttribute("user")
+    fun user(auth: Authentication) = auth
+
+    @ModelAttribute("isAdmin")
+    fun isAdmin(auth: Authentication) = auth.authorities.any { it.authority == "ADMIN" }
+
     @RequestMapping("/")
     fun index(model:ModelMap, auth:Authentication): String {
         val masters=masterRepository.findAll()
         model["masters"]= masters
-        model["hasMasters"]= masters.count()>0
         model["dogs"]= dogRepository.findByMasterIsNull()
-        model["user"] = auth;
         return "index"
     }
 
