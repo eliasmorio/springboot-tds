@@ -5,6 +5,7 @@ import edu.spring.dogs.repositories.RoleRepository
 import edu.spring.dogs.repositories.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.Authentication
+import org.springframework.security.crypto.bcrypt.BCrypt
 import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
 import org.springframework.web.bind.annotation.GetMapping
@@ -33,6 +34,7 @@ class AdminController {
 
     @PostMapping("/users")
     fun addUser(@ModelAttribute user: User) : String{
+        user.password = BCrypt.hashpw(user.password, BCrypt.gensalt())
         userRepository.save(user)
         return "redirect:/admin"
     }

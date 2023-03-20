@@ -26,6 +26,10 @@ class WebSecurityConfig {
             .authorizeHttpRequests()
             .requestMatchers("/init/**", "/login/**").permitAll()
             .requestMatchers(PathRequest.toH2Console()).permitAll() // (1)
+            .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+            .requestMatchers("/master/**").hasAnyAuthority("ADMIN", "MANAGER_MASTER")
+            .requestMatchers("/dog/**").hasAnyAuthority("ADMIN", "MANAGER_DOG")
+            .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
             .anyRequest().authenticated()     // Doit arriver après les requestMatchers
             .and()
             .formLogin().loginPage("/login").successForwardUrl("/")
@@ -33,6 +37,7 @@ class WebSecurityConfig {
             .headers().frameOptions().sameOrigin()
             .and()
             .csrf().disable()
+
         return http.build()
     }
 
