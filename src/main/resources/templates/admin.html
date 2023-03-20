@@ -14,46 +14,97 @@
         </div>
         <div class="extra content">
             <div class="ui two buttons">
-                <a class="ui basic green button">Edit</a>
-                <a class="ui basic red button">Delete</a>
+                <a class="ui basic green button" href="/admin/users/{{id}}/edit">Edit</a>
+                <a class="ui basic red button" href="/admin/users/{{id}}/delete">Delete</a>
             </div>
         </div>
     </div>
 {{ /users }}
 </div>
-    <div class="ui card">
-        <div class="content">
-            <div class="header">Add user</div>
-            <div class="meta">
-                <span class="date">Add a new user</span>
-            </div>
-            <div class="description">
-                <form class="ui form" method="post" action="/admin/users">
-                    <div class="field">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" placeholder="Username">
+
+
+<div class="ui placeholder segment">
+    <div class="ui two column very relaxed stackable grid">
+        <div class="column">
+                <div class="content">
+                    <div class="ui header">Add user</div>
+                    <div class="ui meta">
+                        <span class="date">Add a new user</span>
                     </div>
-                    <div class="field">
-                        <label for="email">Email</label>
-                        <input type="text" name="email" id="email" placeholder="Email">
+                    <div class="description">
+                        <form class="ui form" method="post" action="/admin/users">
+                            <div class="field">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" name="username" placeholder="Username">
+                            </div>
+                            <div class="field">
+                                <label for="email">Email</label>
+                                <input type="text" name="email" id="email" placeholder="Email">
+                            </div>
+                            <div class="field">
+                                <label for="password" >Password</label>
+                                <input type="password" name="password" id="password" placeholder="Password">
+                            </div>
+                            <div class="field">
+                                <label for="role">Role</label>
+                                <select class="ui fluid dropdown" id="role" name="role">
+                                    {{#roles}}
+                                    <option class="ui option" value="{{id}}">{{name}}</option>
+                                    {{/roles}}
+                                </select>
+                            </div>
+                            <button class="ui button" type="submit">Submit</button>
+                        </form>
                     </div>
-                    <div class="field">
-                        <label for="password" >Password</label>
-                        <input type="password" name="password" id="password" placeholder="Password">
-                    </div>
-                    <div class="field">
-                        <label for="role">Role</label>
-                        <select class="ui fluid dropdown" id="role" name="role">
-                            {{#roles}}
-                            <option class="ui option" value="{{id}}">{{name}}</option>
-                            {{/roles}}
-                        </select>
-                    </div>
-                    <button class="ui button" type="submit">Submit</button>
-                </form>
             </div>
         </div>
+        <div class="column">
+                <div class="content">
+                    <div class="ui header">Edit user</div>
+                    {{#editUser}}
+                    <div class="ui meta">
+                        <span class="date">Edit user {{username}}</span>
+                    </div>
+                    <div class="description">
+                        <form class="ui form" method="post" action="/admin/users">
+                            <input type="hidden" name="id" value="{{id}}">
+                            <div class="field">
+                                <label for="usernameEdit">Username</label>
+                                <input type="text" id="usernameEdit" name="username" placeholder="Username" value="{{username}}">
+                            </div>
+                            <div class="field">
+                                <label for="emailEdit">Email</label>
+                                <input type="text" name="email" id="emailEdit" placeholder="Email" value="{{email}}">
+                            </div>
+                            <div class="field">
+                                <label for="passwordEdit" >Password</label>
+                                <input type="password" name="password" id="passwordEdit" placeholder="Password" value="{{password}}">
+                            </div>
+                            <div class="field">
+                                <label for="roleEdit">Role</label>
+                                <select class="ui fluid dropdown" id="roleEdit" name="role">
+                                    {{#roles}}
+                                    <option class="ui option" value="{{id}}" {{#isRole}}selected{{/isRole}}>{{name}}</option>
+                                    {{/roles}}
+                                </select>
+                            </div>
+                            <button class="ui button positive" type="submit">Save</button>
+                        </form>
+                    </div>
+                    {{/editUser}}
+                    {{^editUser}}
+                    <div class="description">
+                        <p>Click on edit button to edit a user</p>
+                    </div>
+                    {{/editUser}}
+                </div>
+        </div>
     </div>
+    <div class="ui vertical divider">
+        Or
+    </div>
+</div>
+
 
 
 {{ >main/footer }}

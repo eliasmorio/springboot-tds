@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 
@@ -23,11 +24,10 @@ class AdminController {
 
 
     @GetMapping("")
-    fun admin(model : ModelMap, authentication: Authentication) : String{
+    fun admin(model : ModelMap, auth: Authentication) : String{
         model["users"] = userRepository.findAll()
         model["roles"] = roleRepository.findAll()
-        model["user"] = authentication
-
+        model["user"] = auth
         return "admin"
     }
 
@@ -37,5 +37,19 @@ class AdminController {
         return "redirect:/admin"
     }
 
+    @GetMapping("/users/{id}/delete")
+    fun deleteUser(@PathVariable id:Int) : String {
+        userRepository.deleteById(id)
+        return "redirect:/admin"
+    }
+
+    @GetMapping("/users/{id}/edit")
+    fun editUser(@PathVariable id:Int, model: ModelMap, auth: Authentication) : String {
+        model["users"] = userRepository.findAll()
+        model["roles"] = roleRepository.findAll()
+        model["user"] = auth
+        model["editUser"] = userRepository.findById(id).get()
+        return "admin"
+    }
 
 }
