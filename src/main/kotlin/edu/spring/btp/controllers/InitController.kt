@@ -4,6 +4,7 @@ import edu.spring.btp.entities.Complaint
 import edu.spring.btp.entities.Domain
 import edu.spring.btp.entities.Provider
 import edu.spring.btp.entities.User
+import edu.spring.btp.service.DbUserService
 import io.github.serpro69.kfaker.faker
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -53,7 +54,7 @@ class InitController {
             val user = User()
             user.username = faker.name.firstName()
             user.email = faker.internet.email()
-            user.password = "password"
+            user.password = (dbUserService as DbUserService).passwordEncoder.encode("password")
             user.role = "USER"
             try {
                 userRepository.save(user)
