@@ -33,7 +33,6 @@ class Domain() {
     open var complaints= mutableListOf<Complaint>()
 
     fun getComplaintsCount():Int{
-        if(!hasChildren()) return 0
         var count=complaints.size
         children.forEach { count+=it.getComplaintsCount() }
         return count
