@@ -7,6 +7,7 @@ import edu.spring.btp.repositories.DomainRepository
 import edu.spring.btp.repositories.ProviderRepository
 import edu.spring.btp.repositories.UserRepository
 import edu.spring.btp.service.DbUserService
+import edu.spring.dogs.services.ui.UIMessage
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.servlet.mvc.support.RedirectAttributes
 
 @Controller
 class IndexController {
@@ -41,8 +43,6 @@ class IndexController {
 
     @ModelAttribute("auth")
     fun auth(auth: Authentication?) = auth
-
-
 
     @RequestMapping(path = ["/", "/index",])
     fun index(model: ModelMap): String {
@@ -108,6 +108,12 @@ class IndexController {
         return "redirect:/login"
     }
 
+
+    @GetMapping("/403")
+    fun error403(attrs : RedirectAttributes): String {
+        UIMessage.addMsg(false, attrs, "Accès refusé", "", "Connectez-vous pour accéder à cette page")
+        return "redirect:/"
+    }
 
 
 }

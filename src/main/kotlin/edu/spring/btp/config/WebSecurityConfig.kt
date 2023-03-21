@@ -22,6 +22,8 @@ class WebSecurityConfig {
             .requestMatchers("/complaints/**").authenticated()
             .anyRequest().permitAll()
             .and()
+            .exceptionHandling().accessDeniedPage("/403")
+            .and()
             .formLogin().loginPage("/login").successForwardUrl("/")
             .and()
             .headers().frameOptions().sameOrigin()
