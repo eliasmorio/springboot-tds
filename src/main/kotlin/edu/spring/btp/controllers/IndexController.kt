@@ -1,11 +1,15 @@
 package edu.spring.btp.controllers
 
 import edu.spring.btp.entities.Complaint
+import edu.spring.btp.entities.User
 import edu.spring.btp.repositories.ComplaintRepository
 import edu.spring.btp.repositories.DomainRepository
 import edu.spring.btp.repositories.ProviderRepository
+import edu.spring.btp.repositories.UserRepository
+import edu.spring.btp.service.DbUserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.Authentication
+import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
 import org.springframework.web.bind.annotation.GetMapping
@@ -26,6 +30,14 @@ class IndexController {
 
     @Autowired
     lateinit var providerRepository: ProviderRepository
+
+    @Autowired
+    lateinit var userRepository : UserRepository
+
+    @Autowired
+    lateinit var userDetailsService: UserDetailsService
+
+
 
     @ModelAttribute("auth")
     fun auth(auth: Authentication?) = auth
@@ -73,6 +85,27 @@ class IndexController {
         val complaint = Complaint(title, description, null, provider, domain)
         complaintRepository.save(complaint)
         return "redirect:/complaints/$domainName"
+    }
+
+
+    @GetMapping("/signup")
+    fun signup(model: ModelMap): String {
+        return "forms/signupForm"
+    }
+
+    @PostMapping("/signup")
+    fun storeUser(@RequestParam username : String,
+                  @RequestParam password : String,
+                  @RequestParam confPassword : String,
+                  @RequestParam email : String) : String {
+        if (password != confPassword) return "redirect:/signup"
+        val user = User(username)
+        user.password = (userDetailsService as DbUserService).passwordEncoder.encode(password)
+        user.email = email
+        user.role = "USER"
+        userRepository.save(user)
+        userDetailsService.loadUserByUsername(username)
+        return "redirect:/login"
     }
 
 
