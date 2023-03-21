@@ -1,0 +1,32 @@
+{{> main/header }}
+
+
+{{#domain}}
+
+<div class="ui header">
+    {{name}}
+</div>
+
+
+<table class="ui table">
+    <thead>
+    <th>Titre</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+    {{#complaints}}
+    <tr>
+        <td>{{title}}</td>
+        <td>{{description}}</td>
+    </tr>
+    {{/complaints}}
+    </tbody>
+</table>
+
+
+{{/domain}}
+
+
+
+
+{{> main/footer }}

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
@@ -25,11 +26,21 @@ class IndexController {
     @GetMapping("/domain/{name}")
     fun domain(@PathVariable name: String, model: ModelMap): String {
         val domain = domainRepository.findByName(name)
-        model["back"] = domain.parent
+        model["back"] = "domain/${domain.parent?.name}"
         model["domain"] = domain
         print(domain.children)
         return "index"
     }
+
+    @GetMapping("/complaints/{domain}")
+    fun complaints(@PathVariable domain: String, model: ModelMap): String {
+        val domain = domainRepository.findByName(domain)
+        model["domain"] = domain
+        model["complaints"] = domain.complaints
+        return "complaints"
+    }
+
+
 
 
 

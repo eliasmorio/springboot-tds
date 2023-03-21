@@ -14,7 +14,7 @@
 </div>
 
 {{#back}}
-<a class="ui button" href="/">
+<a class="ui button" href="{{back}}">
     <i class="arrow left icon"></i>
     Retour
 </a>
@@ -37,17 +37,21 @@
             </div>
 
             <div class="">
+                <a href="/complaints/{{name}}">
                 {{getComplaintsCount}} plaintes
+                </a>
                 <div class="ui label">
                     {{complaints.size}}
                 </div>
-
             </div>
         </div>
-            <a class="ui button" href="/domain/{{name}}">
-                <i class="door open icon"></i>
-                Ouvrir
-            </a>
+        {{#hasChildren}}
+        <a class="ui button" href="/domain/{{name}}">
+            <i class="door open icon"></i>
+            Ouvrir
+        </a>
+        {{/hasChildren}}
+
     </div>
     {{/children}}
 </div>
