@@ -4,6 +4,8 @@ import edu.spring.btp.repositories.DomainRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
@@ -16,10 +18,19 @@ class IndexController {
 
     @RequestMapping(path = ["/", "/index",])
     fun index(model: ModelMap): String {
-        val root = domainRepository.findByName("Root")
-        model["root"] = root
-        print(root.name)
-        model["domains"] = domainRepository.findByParentId(root.id)
+        model["domain"] = domainRepository.findByName("Root")
         return "index"
     }
+
+    @GetMapping("/domain/{name}")
+    fun domain(@PathVariable name: String, model: ModelMap): String {
+        val domain = domainRepository.findByName(name)
+        model["back"] = domain.parent
+        model["domain"] = domain
+        print(domain.children)
+        return "index"
+    }
+
+
+
 }

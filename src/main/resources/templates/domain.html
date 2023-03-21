@@ -1,29 +1,20 @@
 {{> main/header }}
 
 
-{{#domain}}
+{{#root}}
 <div class="ui header">
-    {{name}}
+    {{root.name}}
 </div>
 
 <div class="ui header">
     Domaine(s)
     <div class="left pointing ui label">
-        {{children.size}}
+        {{root.children.size}}
     </div>
 </div>
 
-{{#back}}
-<a class="ui button" href="/">
-    <i class="arrow left icon"></i>
-    Retour
-</a>
-{{/back}}
-
-<hr>
-
 <div class="ui cards">
-    {{#children}}
+    {{#root.children}}
     <div class="card">
         <div class="content">
             <div class="header">
@@ -44,15 +35,16 @@
 
             </div>
         </div>
-            <a class="ui button" href="/domain/{{name}}">
-                <i class="door open icon"></i>
-                Ouvrir
-            </a>
+        <a class="ui button" href="/domain/{{name}}">
+            <i class="door open icon"></i>
+            Ouvrir
+        </a>
     </div>
-    {{/children}}
+
+    {{/root.children}}
 </div>
 
-{{/domain}}
+{{/root}}
 
 
 
