@@ -1,0 +1,33 @@
+{{>/main/header}}
+
+{{#message}}
+{{>main/message}}
+{{/message}}
+
+{{#domain}}
+
+<form class="ui form" method="post">
+    <div class="field">
+        <label for="title">Titre</label>
+        <input id="title" type="text" name="title" placeholder="Titre">
+    </div>
+    <div class="field">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" placeholder="Description"></textarea>
+    </div>
+    <div class="field">
+        <label for="provider">Provider</label>
+        <select class="ui fluid dropdown" id="provider" name="provider">
+            {{#providers}}
+            <option class="ui option" value="{{id}}">{{rs}}</option>
+            {{/providers}}
+        </select>
+    </div>
+    <button class="ui button" type="submit">Submit</button>
+
+</form>
+
+
+{{/domain}}
+
+{{>main/footer}}
