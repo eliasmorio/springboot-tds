@@ -42,7 +42,7 @@ class IndexController {
 
 
     @ModelAttribute("auth")
-    fun auth(auth: Authentication?) = auth
+    fun auth(auth: Authentication?) = auth?.principal
 
     @RequestMapping(path = ["/", "/index",])
     fun index(model: ModelMap): String {

@@ -11,7 +11,10 @@
     <div class="ui inverted menu">
         <a href="/" class="header item">Balance ton pro...</a>
         {{#auth}}
-            <a href="/logout" class="item">Logout</a>
+            <div class="ui item inverted">
+                {{username}}
+                <a href="/logout" class="ui button">Logout</a>
+            </div>
         {{/auth}}
         {{^auth}}
             <a href="/login" class="item">Se connecter</a>
