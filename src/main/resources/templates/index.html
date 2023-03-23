@@ -2,11 +2,11 @@
 
 
 {{#domain}}
-<div class="ui header">
+<div class="ui header blue">
     {{name}}
 </div>
 
-<div class="ui header">
+<div class="ui header inverted">
     Domaine(s)
     <div class="left pointing ui label">
         {{children.size}}
@@ -15,7 +15,7 @@
 
 {{#back}}
 <a class="ui button" href="{{back}}">
-    <i class="arrow left icon"></i>
+    <i class="door open icon"></i>
     Retour
 </a>
 {{/back}}
@@ -36,7 +36,8 @@
                 {{description}}
             </div>
 
-            <div class="">
+            <div >
+                <i class="bug icon purple"></i>
                 <a href="/complaints/{{name}}">
                 {{getComplaintsCount}} plaintes
                 </a>
