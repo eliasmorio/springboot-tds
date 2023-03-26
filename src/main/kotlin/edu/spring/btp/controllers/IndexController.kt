@@ -87,33 +87,19 @@ class IndexController {
         return "redirect:/complaints/$domainName"
     }
 
-
-    @GetMapping("/signup")
-    fun signup(model: ModelMap): String {
-        return "forms/signupForm"
+    @GetMapping("/login-error")
+    fun loginError(model: ModelMap): String {
+        model["error"] = true
+        return "forms/loginForm"
     }
 
-    @PostMapping("/signup")
-    fun storeUser(@RequestParam username : String,
-                  @RequestParam password : String,
-                  @RequestParam confPassword : String,
-                  @RequestParam email : String) : String {
-        if (password != confPassword) return "redirect:/signup"
-        val user = User(username)
-        user.password = (userDetailsService as DbUserService).passwordEncoder.encode(password)
-        user.email = email
-        user.role = "USER"
-        userRepository.save(user)
-        userDetailsService.loadUserByUsername(username)
-        return "redirect:/login"
-    }
-
-
-    @GetMapping("/403")
-    fun error403(attrs : RedirectAttributes): String {
-        UIMessage.addMsg(false, attrs, "Accès refusé", "", "Connectez-vous pour accéder à cette page")
+    @RequestMapping("/logout-success")
+    fun logoutSuccess(attrs : RedirectAttributes): String {
+        UIMessage.addMsg(true, attrs, "Déconnexion réussie", "", "Vous êtes maintenant déconnecté")
         return "redirect:/"
     }
+
+
 
 
 }
