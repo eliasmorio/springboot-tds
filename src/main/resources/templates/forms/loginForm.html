@@ -1,15 +1,35 @@
 {{>/main/header}}
 
-<form method="post" action="./login" class="ui form">
-    <div class="ui field">
-        <label for="username">Username</label>
-        <input class="ui input" type="text" id="username" name="username" placeholder="E-mail or Username" />
+<div class="ui segments inverted">
+    <div class="ui segment">
+        <img src="/images/ladybug.png" alt="Ladybug" class="ui tiny left floated image" />
+        <h1 class="ui header inverted">Connexion - BTP</h1>
     </div>
-    <div class="ui field">
-        <label for="password">Password</label>
-        <input class="ui input" type="password" id="password" name="password" placeholder="Password" />
+    <div class="ui segment">
+    <form method="post" action="./login" class="ui form inverted {{#error}} error {{/error}}">
+        <div class="ui field">
+            <div class="ui left icon input">
+                <input class="ui input" type="text" id="username" name="username" placeholder="E-mail or Username" />
+                <i class="user icon"></i>
+            </div>
+        </div>
+
+        <div class="ui field">
+            <div class="ui left icon input">
+                <input class="ui input" type="password" id="password" name="password" placeholder="Password" />
+                <i class="lock icon"></i>
+            </div>
+        </div>
+            <input class="ui fluid button" type="submit" value="Se connecter" />
+    </form>
     </div>
-    <input class="ui button" type="submit" value="Login" />
-</form>
+</div>
+
+<div class="ui segment inverted">
+    <p> Pas de compte ? <a href="/signup">ya plus qu'à ...</a></p>
+</div>
+
+<a href="https://www.flaticon.com"> Icônes créées par ultimatearm - Flaticon</a>
+
 
 {{>/main/footer}}

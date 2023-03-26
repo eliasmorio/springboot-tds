@@ -1,23 +1,51 @@
 {{>/main/header}}
 
-<form method="post" class="ui form">
-    <div class="ui field">
-        <label for="username">Username</label>
-        <input class="ui input" type="text" id="username" name="username" placeholder="E-mail or Username" />
+<div class="ui segments inverted">
+    <div class="ui segment">
+        <img src="/images/ladybug.png" alt="Ladybug" class="ui tiny left floated image" />
+        <h1 class="ui header inverted">Création de compte - BTP</h1>
     </div>
-    <div class="ui field">
-        <label for="email">Adresse email</label>
-        <input class="ui input" type="email" id="email" name="email" placeholder="Adresse email" />
+    <div class="ui segment">
+        <form class="ui inverted form" method="post">
+            <div class="ui field">
+                <label for="username">Nom d'utilisateur</label>
+                <div class="ui left icon input">
+                    <input class="ui input" type="text" id="username" name="username" placeholder="Nom d'utilisateur" />
+                    <i class="user icon"></i>
+                </div>
+            </div>
+            <div class="ui field">
+                <label for="email">Adresse email</label>
+                <div class="ui left icon input">
+                    <input class="ui input" type="email" id="email" name="email" placeholder="E-mail adress" />
+                    <i class="mail icon"></i>
+                </div>
+            </div>
+            <div class="ui field">
+                <label for="password">Mot de passe</label>
+                <div class="ui left icon input">
+                    <input class="ui input" type="password" id="password" name="password" placeholder="Password" />
+                    <i class="lock icon"></i>
+                </div>
+            </div>
+            <div class="ui field">
+                <label class="ui" for="confPassword">Confirmez votre mot de passe</label>
+                <div class="ui left icon input">
+                    <input class="ui input" type="password" id="confPassword" name="confPassword" placeholder="Password Confirmation" />
+                    <i class="lock icon"></i>
+                </div>
+            </div>
+            <input hidden="hidden" type="text" value="USER" name="role">
+            <input class="ui fluid button basic purple" type="submit" value="Créer le compte" />
+        </form>
     </div>
-    <div class="ui field">
-        <label for="password">Password</label>
-        <input class="ui input" type="password" id="password" name="password" placeholder="Password" />
-    </div>
-    <div class="ui field">
-        <label for="confPassword">Confirm Password</label>
-        <input class="ui input" type="password" id="confPassword" name="confPassword" placeholder="Password Confirmation" />
-    </div>
-    <input class="ui button" type="submit" value="Sign up" />
-</form>
+</div>
+
+<div class="ui segment inverted">
+    <p> Déjà un compte ? <a href="/login">Se connecter</a></p>
+</div>
+
+<a href="https://www.flaticon.com"> Icônes créées par ultimatearm - Flaticon</a>
+
 
 {{>/main/footer}}
