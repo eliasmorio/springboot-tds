@@ -46,13 +46,20 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      
       - name: Build and push the Docker image
         uses: docker/build-push-action@v3
         with:
-          push: true
-          tags: |
-            ghcr.io/${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-            ghcr.io/${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
