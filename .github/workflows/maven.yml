@@ -30,7 +30,7 @@ jobs:
       - name: Run unit tests
         run: mvn -B test --file pom.xml
 
-  deploy:
+  build:
     needs: [test]
     runs-on: ubuntu-latest
     permissions:
@@ -60,6 +60,4 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 
